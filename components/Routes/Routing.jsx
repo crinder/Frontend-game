@@ -8,6 +8,9 @@ import Categorias from '../Categorias/Category';
 import Crear from '../Categorias/Crear';
 import Editar from '../Categorias/Editar';
 import CrearGame from '../Games/Crear';
+import EditarGame from '../Games/Editar';
+import ListGames from '../Games/ListGames';
+import View from '../Games/View';
 
 const Routing = () => {
 
@@ -23,6 +26,9 @@ const Routing = () => {
                 <Route path='crear-categorias' element={<Crear />} />
                 <Route path='editar-categorias' element={<Editar />} />
                 <Route path='crear-games' element={<CrearGame />} />
+                <Route path='editar-games' element={<EditarGame />} />
+                <Route path='list-games' element={<ListGames />} />
+                <Route path='detalle-game' element={<View />} />
             </Route>
         </Routes>
     )

@@ -1,19 +1,16 @@
-import React, { use, useState } from 'react'
+import React, { use, useEffect, useState } from 'react'
+import Global from '../Utils/Global';
+import CardGames from './CardGames';
+import { useNavigate } from 'react-router-dom';
 
 const ListDescuento = () => {
-
-  const images = [
-    'https://cdn.hobbyconsolas.com/sites/navi.axelspringer.es/public/media/image/2020/06/horizon-forbidden-west-dive-1964777.jpeg?tf=3840x',
-    'https://images.ctfassets.net/wn7ipiv9ue5v/2o2zzN8bdBFi6BwGFJR1lK/fab7d2a0fa20e7a8ec13c6400bd21422/N25-BASE-STANDARD_EDITION_ANNOUNCE-NA-STATIC-ESRB-AGN-1920x1080.jpg',
-    'https://media.vandal.net/i/1280x720/27407/god-of-war-201842202610_1.jpg',
-    'https://cdn.hobbyconsolas.com/sites/navi.axelspringer.es/public/media/image/2020/06/horizon-forbidden-west-dive-1964777.jpeg?tf=3840x',
-    'https://images.ctfassets.net/wn7ipiv9ue5v/2o2zzN8bdBFi6BwGFJR1lK/fab7d2a0fa20e7a8ec13c6400bd21422/N25-BASE-STANDARD_EDITION_ANNOUNCE-NA-STATIC-ESRB-AGN-1920x1080.jpg',
-    'https://media.vandal.net/i/1280x720/27407/god-of-war-201842202610_1.jpg'
-  ];
 
   const [isOpenCategoria, setIsOpenCategoria] = useState(false);
   const [isOpenDescuentos, setIsOpenDescuentos] = useState(false);
   const [isOpenPrecio, setIsOpenPrecio] = useState(false);
+  const [games, setGames] = useState([]);
+  const [preview, setPreview] = useState(null);
+  const navigate = useNavigate();
 
   const toggleCategoria = () => {
     setIsOpenCategoria(!isOpenCategoria);
@@ -27,11 +24,36 @@ const ListDescuento = () => {
     setIsOpenPrecio(!isOpenPrecio);
   };
 
+  useEffect(() => {
+    devuelveGames();
+  }, []);
+
+  const devuelveGames = async () => {
+
+    const request = await fetch(Global.url + 'game/list', {
+      method: 'GET',
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+
+    const data = await request.json();
+
+    if (data.status == 'success') {
+      setGames(data.game);
+    }
+
+  }
+
+  const viewDeatail = (id) => {
+    navigate('/ultra-games/detalle-game/', { state: { id } });
+  }
+
   return (
     <div className='div__container'>
 
       <div className='div__title'>
-        <span className='div__title-text'>Listado de descuentos</span>
+        <span className='div__title-text'>Listado</span>
       </div>
 
       <div className='games__container'>
@@ -133,10 +155,11 @@ const ListDescuento = () => {
         </div>
 
         <div className='list__list'>
-          {images.map(image => {
+          {games && games.map(game => {
             return (
-              <div className='div__img-list'>
-                <img src={image} alt='Slider' className='games__item-img' />
+              <div className="list__games" key={game._id} onClick={() => viewDeatail(game._id)}>
+                <CardGames preview={'E'} price={game.price} description={game.description}
+                  name={game.name} img={game.image} />
               </div>
             )
           })}
