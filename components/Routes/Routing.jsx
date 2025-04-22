@@ -11,6 +11,7 @@ import CrearGame from '../Games/Crear';
 import EditarGame from '../Games/Editar';
 import ListGames from '../Games/ListGames';
 import View from '../Games/View';
+import Slider from '../Administrador/Slider';
 
 const Routing = () => {
 
@@ -29,6 +30,7 @@ const Routing = () => {
                 <Route path='editar-games' element={<EditarGame />} />
                 <Route path='list-games' element={<ListGames />} />
                 <Route path='detalle-game' element={<View />} />
+                <Route path='admin-slider' element={<Slider />} />
             </Route>
         </Routes>
     )

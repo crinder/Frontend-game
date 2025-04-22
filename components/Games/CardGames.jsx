@@ -4,12 +4,9 @@ import Global from '../Utils/Global';
 const CardGames = ({ preview, price, description, name, img }) => {
 
     const maxLength = 100;
+    const c_descrip = description.slice(0, maxLength) + (description.length > maxLength ? '...' : '');
 
     console.log('preview...', preview);
-    console.log('img...', img);
-
-
-    const c_descrip = description.slice(0, maxLength) + (description.length > maxLength ? '...' : '');
 
     return (
         <div className='games__games'>

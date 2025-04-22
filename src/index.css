@@ -82,6 +82,10 @@ img {
   flex-direction: row;
 }
 
+.header__logo-img{
+  display: flex;
+}
+
 /***Nav-nav***/
 /*.div__nav {
   grid-area: nav;
@@ -1119,4 +1123,107 @@ img {
 .game__view-description {
   font-size: 1.8rem;
   line-height: 1.5;
+}
+
+/******Slider*******/
+
+.slider__container-slider {
+  display: flex;
+  flex-direction: column;
+  padding: 4rem; 
+  overflow-x: auto;
+}
+
+.slider__content {
+  display: flex; 
+  flex-direction: row; 
+  justify-content: start;
+  align-items: center;
+  padding: 2rem;
+  white-space: nowrap;
+  flex-wrap: wrap;
+  margin: 2rem  2rem 3rem 3rem;
+}
+
+.slider__bg {
+  background-color: lightgray;
+  padding: 1rem;
+  border-radius: 10px;
+}
+
+.slider__dnd {
+  width: 360px;
+  height: 250px;
+  overflow: hidden;
+  border-radius: 5px;
+  border: 1px solid #eee;
+  cursor: grab;
+  margin: 2rem;
+
+}
+
+.slider__dnd-img{
+  object-fit: fill;
+}
+
+.preview__dnd-container,
+.preview__dnd,
+.preview__dnd-card {
+  width: 100%;
+  height: 100%;
+}
+
+.preview__dnd{
+}
+
+.preview__dnd-delete{
+  display: block;
+  position: absolute;
+  cursor: pointer;
+  margin-left: 16rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+  transition: all 300ms ease-in-out;
+  animation-name: moveLeftRigth;
+  animation-iteration-count: infinite;
+  animation-duration: 10s;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes moveLeftRigth {
+  0% {
+    transform: translateX(0px);
+  }
+  30% {
+    transform: translateY(-5px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+
+  70%{
+    transform: translateY(-7px);
+  }
+
+  80%{
+    transform: translateY(-5px);
+  }
+
+  100% {
+    transform: translateX(0px);
+  }
+}
+
+.icon-trash{
+  width: 30px;
+  height: 30px;
+  transition: all 300ms ease-in-out;
+}
+
+
+.preview__dnd-delete:hover .icon-trash {
+  transform: scale(1.3);
+  font-size: 2rem;
+  color: red;
+  animation-name: none;
 }

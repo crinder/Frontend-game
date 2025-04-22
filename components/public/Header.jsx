@@ -2,9 +2,11 @@ import React from 'react'
 import Nav from './Nav'
 import { IconSearch, IconUser, IconShopping } from '../Utils/Icons'
 import Search from './Search'
-import Logo from '../../src/img/logo_spaceGame.jpg'
-import Logo2 from '../../src/img/logo_space.jpg'
-import Logo3 from '../../src/img/logo_space3.jpg'
+import Logo4 from '../../src/img/logo_space4.jpg';
+import logo5 from '../../src/img/logo_space5.png';
+import logo6 from '../../src/img/logo_space6.png';
+import logo7 from '../../src/img/logo_space7.png';
+
 
 const Header = () => {
   return (
@@ -17,8 +19,8 @@ const Header = () => {
 
           <div className='header__logo'>
             <div className='header__logo-img'>
-              <img src={Logo3} alt="Logo" className='header__logo-img-img' />
-
+              <img src={logo6} alt="Logo" className='header__logo-img-img' />
+              <img src={logo7} alt="Logo" className='header__logo-img-img' />
             </div>
           </div>
 

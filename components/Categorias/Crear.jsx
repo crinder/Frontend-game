@@ -1,4 +1,4 @@
-import { React, useState } from 'react'
+import { React, useEffect, useState } from 'react'
 import global from '../Utils/Global';
 import Dropzone from '../Utils/Dropzone';
 import { IconCategory, IconReturn } from '../Utils/Icons';
@@ -16,6 +16,7 @@ const Crear = () => {
 
 
     const fileSelected = (file) => {
+        console.log('selectedFile...', selectedFile);
         setSelectedFile(file);
     }
 
@@ -54,8 +55,6 @@ const Crear = () => {
             setIsUploading(false);
         }
     }
-
-
 
     return (
         <div className='categorias__crear div__container'>
