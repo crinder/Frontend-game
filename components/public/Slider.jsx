@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import Global from '../Utils/Global';
 
 const Slider = ({ images }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -24,7 +25,7 @@ const Slider = ({ images }) => {
     <div className='slider__container' >
       <div style={{ display: 'flex', transition: 'transform 0.5s ease-in-out', transform: `translateX(-${currentIndex * 100}%)` }}>
         {images.map((image, index) => (
-          <img key={index} src={image} alt={`Slide ${index + 1}`} style={{ width: '100%', flexShrink: 0 }} />
+          <img key={index} src={Global.url + 'slider/images/' + image.image} alt={`Slide ${index + 1}`} style={{ width: '100%', flexShrink: 0 }} />
         ))}
       </div>
       <button onClick={goToPrevious} style={{ position: 'absolute', top: '50%', left: '10px', transform: 'translateY(-50%)' }}>

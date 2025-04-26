@@ -30,6 +30,7 @@ const Dropzone = ({ onFileSelected }) => {
             'image/jpeg': [],
             'image/png': [],
             'image/gif': [],
+            'image/webp': [],
         },
         multiple: true
     });

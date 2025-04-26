@@ -82,7 +82,7 @@ img {
   flex-direction: row;
 }
 
-.header__logo-img{
+.header__logo-img {
   display: flex;
 }
 
@@ -800,7 +800,7 @@ img {
   color: red;
 }
 
-.game__dropzone{
+.game__dropzone {
   width: 100%;
 }
 
@@ -836,7 +836,7 @@ img {
 
 
 
-.game__games-content-left{
+.game__games-content-left {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -881,46 +881,46 @@ img {
   width: 60%;
 }
 
-.game__games-content-left{
+.game__games-content-left {
   width: 100%;
 
 }
 
-.game__games-content-right{
+.game__games-content-right {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;  
+  align-items: center;
   gap: 2rem;
   width: 100%;
   margin-top: 2rem;
 }
 
-.game__input-crear{
+.game__input-crear {
   width: 100%;
 }
 
-.game__games-dist{
+.game__games-dist {
   width: 55%;
 }
 
-.game__games-dist2{
+.game__games-dist2 {
   width: 20%;
 }
 
-.game__games-dist3{
+.game__games-dist3 {
   width: 20%;
 }
 
-.game__games-dist4{
+.game__games-dist4 {
   width: 10%;
 }
 
-.game__games-dist5{
+.game__games-dist5 {
   width: 80%;
 }
 
-.game__games-preview{
+.game__games-preview {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -1130,57 +1130,56 @@ img {
 .slider__container-slider {
   display: flex;
   flex-direction: column;
-  padding: 4rem; 
+  padding: 4rem;
   overflow-x: auto;
 }
 
 .slider__content {
-  display: flex; 
-  flex-direction: row; 
-  justify-content: start;
-  align-items: center;
-  padding: 2rem;
-  white-space: nowrap;
-  flex-wrap: wrap;
-  margin: 2rem  2rem 3rem 3rem;
+  display: flex;
+  flex-direction: row;
+  margin: 2rem 2rem 3rem 3rem;
+  width: 100%;
 }
 
 .slider__bg {
   background-color: lightgray;
   padding: 1rem;
   border-radius: 10px;
+  padding-bottom: 3rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  height: 400px;
 }
 
 .slider__dnd {
-  width: 360px;
-  height: 250px;
   overflow: hidden;
-  border-radius: 5px;
-  border: 1px solid #eee;
   cursor: grab;
-  margin: 2rem;
+  margin: 1rem;
 
 }
 
-.slider__dnd-img{
+.preview__dnd-img{
+  
+}
+
+.game__card-img-img{
+  width: 100%;
+  height: 200px;
+}
+
+
+.slider__dnd-img {
   object-fit: fill;
 }
 
-.preview__dnd-container,
-.preview__dnd,
-.preview__dnd-card {
-  width: 100%;
-  height: 100%;
-}
 
-.preview__dnd{
-}
+.preview__dnd {}
 
-.preview__dnd-delete{
-  display: block;
-  position: absolute;
+.preview__dnd-delete {
+  display: flex;
   cursor: pointer;
-  margin-left: 16rem;
+  justify-content: center;
+  align-items: center;
   margin-top: 1.5rem;
   margin-bottom: 1rem;
   transition: all 300ms ease-in-out;
@@ -1188,24 +1187,27 @@ img {
   animation-iteration-count: infinite;
   animation-duration: 10s;
   animation-timing-function: ease-in-out;
+  z-index: 9999999;
 }
 
 @keyframes moveLeftRigth {
   0% {
     transform: translateX(0px);
   }
+
   30% {
     transform: translateY(-5px);
   }
+
   50% {
     transform: translateY(-8px);
   }
 
-  70%{
+  70% {
     transform: translateY(-7px);
   }
 
-  80%{
+  80% {
     transform: translateY(-5px);
   }
 
@@ -1214,7 +1216,7 @@ img {
   }
 }
 
-.icon-trash{
+.icon-trash {
   width: 30px;
   height: 30px;
   transition: all 300ms ease-in-out;

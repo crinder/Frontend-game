@@ -1,9 +1,7 @@
 import React from 'react'
 import Nav from './Nav'
-import { IconSearch, IconUser, IconShopping } from '../Utils/Icons'
+import { IconSearch, IconUser, IconShopping, IconAdmin } from '../Utils/Icons'
 import Search from './Search'
-import Logo4 from '../../src/img/logo_space4.jpg';
-import logo5 from '../../src/img/logo_space5.png';
 import logo6 from '../../src/img/logo_space6.png';
 import logo7 from '../../src/img/logo_space7.png';
 
@@ -27,6 +25,7 @@ const Header = () => {
         </div>
         <div className='header__right'>
           <ul className='header__menu'>
+            <li className='hearder__menu-list'><IconAdmin/></li>
             <li className='hearder__menu-list'><Search/></li>
             <li className='hearder__menu-list'><IconUser/></li>
             <li className='hearder__menu-list'><IconShopping/></li>
