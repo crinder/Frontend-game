@@ -4,6 +4,8 @@ import { IconSearch, IconUser, IconShopping, IconAdmin } from '../Utils/Icons'
 import Search from './Search'
 import logo6 from '../../src/img/logo_space6.png';
 import logo7 from '../../src/img/logo_space7.png';
+import CountGames from '../Utils/CountGames';
+import Shopping from '../Games/Shopping';
 
 
 const Header = () => {
@@ -25,10 +27,11 @@ const Header = () => {
         </div>
         <div className='header__right'>
           <ul className='header__menu'>
-            <li className='hearder__menu-list'><IconAdmin/></li>
+            
             <li className='hearder__menu-list'><Search/></li>
             <li className='hearder__menu-list'><IconUser/></li>
-            <li className='hearder__menu-list'><IconShopping/></li>
+            <li className='hearder__menu-list'><IconAdmin/></li>
+            <li className='hearder__menu-list '><Shopping/><CountGames/></li>
           </ul>
         </div>
       </div>

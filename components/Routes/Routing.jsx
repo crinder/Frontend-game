@@ -14,6 +14,7 @@ import View from '../Games/View';
 import Slider from '../Administrador/Slider';
 import EditarSlider from '../Administrador/EditarSlider';
 import PreviewSlider from '../Administrador/PreviewSlider';
+import Shopping from '../Games/Shopping';
 
 const Routing = () => {
 
@@ -35,6 +36,7 @@ const Routing = () => {
                 <Route path='admin-slider' element={<Slider />} />
                 <Route path='admin-editar-slider' element={<EditarSlider />} />
                 <Route path='preview-slider' element={<PreviewSlider />} />
+                <Route path='shopping-cart' element={<Shopping />} />
             </Route>
         </Routes>
     )
