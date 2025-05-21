@@ -1,76 +1,92 @@
 import React from 'react'
-import { IconArrowRight,IconBubbles } from '../Utils/Icons';
-import  Bubbles from '../../src/assets/circle.svg';
+import { IconArrowRight, IconBubbles } from '../Utils/Icons';
+import Bubbles from '../../src/assets/circle.svg';
 import { useNavigate } from 'react-router-dom';
 
 const Admin = () => {
 
+    /*https://wallup.net/wp-content/uploads/2019/10/254647-angels-devil-may-cry-vergil-dmc.jpg
+    https://staticctf.ubisoft.com/J3yJr34U2pZ2Ieem48Dwy9uqj5PNUQTn/grS2qwo9ibGvyJuXWEz67/c3e86cd45b1aab7e683e29ab1560f8b9/Assassin___s_Creed_Valhalla_____Ubisoft_Forward_Fan_Kit.jpg
+    https://images.launchbox-app.com/491bb498-0caa-4af8-acbf-dd0bfbfd74c9.jpg*/
+
     const navigate = useNavigate();
 
-    const goCategory = () => {
-        navigate('/ultra-games/categorias');
+    const goComponent = (id) => {
+        navigate('/ultra-games/'+id);
     }
 
     return (
         <div className='div__container'>
 
-            <div className='cards__admin'>
+            <div className='cards__admins'>
 
-                <div className='card__admin' onClick={goCategory}>
-                    <div className='card__admin-img'>
-                        <div className='card__admin-grandient'>
-                            <img src="https://wallup.net/wp-content/uploads/2019/10/254647-angels-devil-may-cry-vergil-dmc.jpg" alt="" 
-                            className='card__admin-img-img'
-                            />
-                        </div>
-                        <div className='card__admin-body card__body_1'>
-                            <div className='card-img'>
-                             
-                            </div>
-                        
-                            <h4>Categorias</h4>
-                            <div className='card-buble'>
-                            <IconBubbles />
-                            </div>
-                            
-                        </div>
-                    </div>
-                </div>
-
-                <div className='card__admin'>
-                    <div className='card__admin-img'>
-                        <div className='card__admin-grandient'>
-                            <img src="https://staticctf.ubisoft.com/J3yJr34U2pZ2Ieem48Dwy9uqj5PNUQTn/grS2qwo9ibGvyJuXWEz67/c3e86cd45b1aab7e683e29ab1560f8b9/Assassin___s_Creed_Valhalla_____Ubisoft_Forward_Fan_Kit.jpg" alt="" 
-                            className='card__admin-img-img'
-                            />
-                        </div>
-                        <div className='card__admin-body card__body_2'>
-                            <h4>Juegos</h4>
-                            <div className='card-buble'>
-                            <IconBubbles />
+                <div class="card" onClick={() => goComponent('admin-editar-slider')}>
+                    <div class="card__admin-header">
+                        <img src="https://wallup.net/wp-content/uploads/2019/10/254647-angels-devil-may-cry-vergil-dmc.jpg" alt="" 
+                        className='card__admin-header-img'/>
+                        <div class="card__admin-header-descrip">
+                            <div class="card__admin-header-descrip-title">
+                                <p class="card__admin-header-title">Administrar slider</p>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div className='card__admin'>
-                    <div className='card__admin-img'>
-                        <div className='card__admin-grandient'>
-                            <img src="https://images.launchbox-app.com/491bb498-0caa-4af8-acbf-dd0bfbfd74c9.jpg" alt="" 
-                            className='card__admin-img-img'
-                            />
-                        </div>
-                        <div className='card__admin-body card__body_3'>
-                            <h4>Slider</h4>
-                            <div className='card-buble'>
-                            <IconBubbles />
-                            </div>
-                        </div>
+                    <div class="card__content">
+                        <p class="card__title"></p>
+                        <p class="card__description">Puedes crear, editar y eliminar sliders y darle el orden que desees solo arrastra y suelta.</p>
                     </div>
                 </div>
 
+                <div class="card" onClick={() => goComponent('crear-games')}>
+                    <div class="card__admin-header">
+                        <img src="https://staticctf.ubisoft.com/J3yJr34U2pZ2Ieem48Dwy9uqj5PNUQTn/grS2qwo9ibGvyJuXWEz67/c3e86cd45b1aab7e683e29ab1560f8b9/Assassin___s_Creed_Valhalla_____Ubisoft_Forward_Fan_Kit.jpg" alt="" 
+                        className='card__admin-header-img'/>
+                        <div class="card__admin-header-descrip">
+                            <div class="card__admin-header-descrip-title">
+                                <p class="card__admin-header-title">Crear juegos</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card__content">
+                        <p class="card__title"></p>
+                        <p class="card__description">Puedes crear juegos para PS4, PS5 .</p>
+                    </div>
+                </div>
+
+                <div class="card" onClick={() => goComponent('list-games')}>
+                    <div class="card__admin-header" >
+                        <img src="https://images.launchbox-app.com/491bb498-0caa-4af8-acbf-dd0bfbfd74c9.jpg" alt="" className='card__admin-header-img'/>
+                        <div class="card__admin-header-descrip">
+                            <div class="card__admin-header-descrip-title">
+                                <p class="card__admin-header-title">Editar juegos</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card__content">
+                        <p class="card__title"></p>
+                        <p class="card__description">No te gusto como quedo el juego? Puedes editar los detalles del juego.</p>
+                    </div>
+                </div>
+
+                <div class="card" onClick={() => goComponent('categorias')}>
+                    <div class="card__admin-header" >
+                        <img src="https://staticctf.ubisoft.com/J3yJr34U2pZ2Ieem48Dwy9uqj5PNUQTn/grS2qwo9ibGvyJuXWEz67/c3e86cd45b1aab7e683e29ab1560f8b9/Assassin___s_Creed_Valhalla_____Ubisoft_Forward_Fan_Kit.jpg" alt="" 
+                        className='card__admin-header-img'/>
+                        <div class="card__admin-header-descrip">
+                            <div class="card__admin-header-descrip-title">
+                                <p class="card__admin-header-title">Categorias</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card__content">
+                        <p class="card__title"></p>
+                        <p class="card__description">Puedes crear categorias para tus juegos.</p>
+                    </div>
+                </div>
             </div>
-
         </div>
     )
 }

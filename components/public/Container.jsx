@@ -3,10 +3,14 @@ import Slider from '../public/slider';
 import Recomendados from '../Games/Recomendados';
 import Descuentos from '../Games/Descuentos';
 import Global from '../Utils/Global';
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
+
 
 const Container = () => {
 
   const [images, setImages] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const devuelveSlider = async () => {
 
@@ -21,6 +25,10 @@ const Container = () => {
 
     if (data.status == 'success') {
       setImages(data.slider);
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 1000);
+      
     }
 
   }
@@ -31,8 +39,10 @@ const Container = () => {
 
   return (
     <div className='div__container'>
-      {images && <Slider images={images} />}
-
+      {isLoading ? <Skeleton count={1} height={700} baseColor="#e9e8e8" highlightColor="#ffffff" /> :
+        images && <Slider images={images} />
+      }
+      
         <div className='container__content'></div>
         <Descuentos/>
         <Recomendados/>

@@ -58,13 +58,15 @@ img {
   background-color: blue;
   position: sticky;
   width: 100%;
-  top: 0;
+  top: -1px;
   z-index: 999;
 }
 
 .header__left {
   display: flex;
   flex-direction: row;
+  align-items: center;
+  max-height: 15rem;
 }
 
 .header__container {
@@ -72,19 +74,16 @@ img {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 5rem;
-  padding-left: 3rem;
+  padding-left: 5rem;
+  padding-right: 7rem;
   width: 100%;
+  height: 15rem;
 }
 
 .header__menu {
   position: relative;
   display: flex;
   flex-direction: row;
-}
-
-.header__logo-img {
-  display: flex;
 }
 
 .icon-menu-cart{
@@ -100,12 +99,6 @@ img {
   align-items: center;
   z-index: 2;
 }
-
-/***Nav-nav***/
-/*.div__nav {
-  grid-area: nav;
-  background-color: green;
-}*/
 
 .header__burguer {
   position: relative;
@@ -132,7 +125,8 @@ img {
 
 .menu__container {
   position: absolute;
-  left: 10px;
+  left: 0px;
+  top: -10px;
   z-index: 10;
 }
 
@@ -144,8 +138,8 @@ img {
 
 .menu__options {
   position: absolute;
-  top: 7rem;
-  left: -30px;
+  top: 7.5rem;
+  left: -50px;
   width: 30rem;
   background-color: #f0f0f0;
   transition: all 300ms ease-in-out;
@@ -175,10 +169,30 @@ img {
   transform: scale(1.1);
 }
 
-.header__logo {
-  width: 100px;
-  height: 50px;
-  margin-left: 6rem;
+.header__logo{
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  margin-left: 3rem;
+  padding: 3rem;
+  transition: all 300ms ease-in-out;
+  cursor: pointer;
+}
+
+.header__logo-img{
+  width: 100%;
+  height: 12rem;
+  filter: drop-shadow(2px 5px 1px #000000);
+}
+
+.header__logo-img-img{
+  width: 100%;
+  height: 100%;
+}
+
+.header__logo-img--2{
+  height: 5rem;
+
 }
 
 .hearder__menu-list {
@@ -186,6 +200,12 @@ img {
   cursor: pointer;
   transition: all 300ms ease-in-out;
 }
+
+.header__logo:hover{
+  transform: scale(1.1);
+}
+
+
 
 /*
 .hearder__menu-list:hover{
@@ -429,102 +449,108 @@ img {
 
 /*******admin*******/
 
-.cards__admin {
+.cards__admins{
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  padding: 2rem;
+  justify-content: space-around;
+  padding: 6rem 4rem;
 }
 
-
-.card__admin {
+/* From Uiverse.io by gharsh11032000 */ 
+.card {
   position: relative;
-  border-radius: 10px;
-  width: 25%;
+  width: 400px;
   height: 300px;
-  background-color: rgb(246, 242, 242);
-  -webkit-box-shadow: 1px 1px 12px #000;
-  box-shadow: 1px 1px 12px #000;
-  -webkit-transform: preserve-3d;
-  -ms-transform: preserve-3d;
-  transform: preserve-3d;
-  -webkit-perspective: 2000px;
-  perspective: 2000px;
+  margin: 3rem 2rem;
+  background-color: #f2f2f2;
+  border-radius: 10px;
   display: flex;
   align-items: center;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
   justify-content: center;
-  color: #000;
-  margin: 2.5rem;
-  transition: all 300ms ease-in-out;
+  overflow: hidden;
+  perspective: 1000px;
+  box-shadow: 0 0 0 5px #ffffff80;
+  transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   cursor: pointer;
+
 }
 
-.card__admin-body {
-  top: 0;
+.card svg {
+  width: 48px;
+  fill: #333;
+  transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(255, 255, 255, 0.2);
+}
+
+.card__content {
   position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  border-radius: 10px;
-  cursor: pointer;
-  -webkit-transition: all 0.5s;
-  transition: all 0.5s;
-  -webkit-transform-origin: 0;
-  -ms-transform-origin: 0;
-  transform-origin: 0;
-  -webkit-box-shadow: 1px 1px 12px #000;
-  box-shadow: 1px 1px 12px #d7d2d2;
-  display: flex;
-  align-items: center;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
+  background-color: #f2f2f2;
+  transform: rotateX(-90deg);
+  transform-origin: bottom;
+  transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.card__body_1 {
-  background: linear-gradient(to right, #ffbf96, #fe7096);
+.card:hover .card__content {
+  transform: rotateX(0deg);
 }
 
-.card__body_2 {
-  background: linear-gradient(to right, #90caf9, #047edf 99%);
+.card__title {
+  margin: 0;
+  font-size: 24px;
+  color: #333;
+  font-weight: 700;
 }
 
-.card__body_3 {
-  background: linear-gradient(to right, #84d9d2, #07cdae);
+.card__description {
+  margin: 10px 0 0;
+  font-size: 14px;
+  color: #777;
+  line-height: 1.4;
 }
 
-.card__admin-grandient {
-  width: 100%;
-  padding: 1rem;
-  filter: drop-shadow(5px 5px 10px #555454);
-}
-
-.card__admin:hover .card__admin-body {
-  -webkit-transition: all 0.5s;
-  transition: all 0.5s;
-  -webkit-transform: rotatey(-80deg);
-  -ms-transform: rotatey(-80deg);
-  transform: rotatey(-80deg);
-}
-
-.card__admin-img-img {
-  border-radius: 10px;
-  height: 28rem;
-}
-
-.card-buble {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 54%;
+.card__admin-header{
   height: 100%;
 }
 
-.card-buble svg {
-  border-radius: 10px;
+.card__admin-header-img{
+  height: 100%;
 }
+
+.card__admin-header-descrip{
+  position: relative;
+}
+
+.card__admin-header-descrip-title{
+  position: absolute;
+  top: -70px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  font-size: 24px;
+  font-weight: 700;
+  text-align: center;
+  padding: 0 2rem;
+}
+
+.card__admin-header-title{
+  background-color: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(5px);
+  border-radius: 10px;
+  padding: 1.5rem;
+}
+
+
+
 
 /***Category***/
 
@@ -1722,4 +1748,24 @@ img {
 
 .shopping__cart-pay-title:hover{
   background-color: #0047fa;
+}
+
+/**fade up**/
+
+.fade-in-section {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  will-change: opacity, transform;
+}
+
+.fade-in-section.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.games__item-image {
+  max-width: 100%;
+  height: auto;
+  display: block;
 }

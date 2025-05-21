@@ -1,16 +1,19 @@
-import React, { use, useEffect, useState } from 'react'
+import React, { use, useEffect, useState, useRef } from 'react'
 import Global from '../Utils/Global';
 import CardGames from './CardGames';
 import { useNavigate } from 'react-router-dom';
+import FadeInOnScroll from '../Utils/FadeInOnScroll';
 
-const ListDescuento = () => {
+const ListDescuento = ({ children, threshold = 0.2, rootMargin = '0px' }) => {
 
   const [isOpenCategoria, setIsOpenCategoria] = useState(false);
   const [isOpenDescuentos, setIsOpenDescuentos] = useState(false);
   const [isOpenPrecio, setIsOpenPrecio] = useState(false);
+  const [isReady, setIsReady] = useState(false);
   const [games, setGames] = useState([]);
   const [preview, setPreview] = useState(null);
   const navigate = useNavigate();
+  const [loadingGames, setLoadingGames] = useState(true);
 
   const toggleCategoria = () => {
     setIsOpenCategoria(!isOpenCategoria);
@@ -26,6 +29,7 @@ const ListDescuento = () => {
 
   useEffect(() => {
     devuelveGames();
+    console.log('devuelve games...');
   }, []);
 
   const devuelveGames = async () => {
@@ -41,6 +45,7 @@ const ListDescuento = () => {
 
     if (data.status == 'success') {
       setGames(data.game);
+      setLoadingGames(false);
     }
 
   }
@@ -155,14 +160,28 @@ const ListDescuento = () => {
         </div>
 
         <div className='list__list'>
-          {games && games.map(game => {
-            return (
-              <div className="list__games" key={game._id} onClick={() => viewDeatail(game._id)}>
-                <CardGames preview={'E'} price={game.price} description={game.description}
-                  name={game.name} img={game.image} />
-              </div>
+          {loadingGames ? (
+            <p>Cargando juegos...</p> // Mensaje de carga
+          ) : (
+            games.length > 0 ? (
+              games.map(game => (
+                // ¡AQUÍ ES DONDE USAS FADEINOPSCROLL PARA CADA ITEM!
+                <FadeInOnScroll key={game._id}> {/* Usa game._id como key */}
+                  <div className='list__games' onClick={() => viewDeatail(game._id)}>
+                    <CardGames
+                      preview={'E'} // ¿Qué significa 'E'? Asegúrate de que sea lo que esperas
+                      price={game.price}
+                      description={game.description}
+                      name={game.name}
+                      img={game.image} // Asumiendo que game.image es la URL de la imagen
+                    />
+                  </div>
+                </FadeInOnScroll>
+              ))
+            ) : (
+              <p>No se encontraron juegos.</p> // Mensaje si no hay juegos
             )
-          })}
+          )}
         </div>
       </div>
     </div>

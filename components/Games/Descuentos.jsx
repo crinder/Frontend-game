@@ -49,7 +49,7 @@ const Descuentos = () => {
             <div ref={sliderRef} style={{ display: 'flex',transition: 'transform 0.5s ease-in-out', transform: `translateX(${position}px)`,}}>
                 {images.map((image, index) => (
 
-                    <div className='games__item' key={index}>
+                    <div className='games__item ' key={index}>
                         <img key={index} src={image} alt={`Slide ${index + 1}`}style={{ width: '100%', flexShrink: 0 }}/>
                     </div>
 
