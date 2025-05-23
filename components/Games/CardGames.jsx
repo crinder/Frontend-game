@@ -1,20 +1,14 @@
 import React from 'react'
 import Global from '../Utils/Global';
 
-const CardGames = ({ preview, price, description, name, img }) => {
+const CardGames = ({ preview, price, description, name, img, descuento, plataform }) => {
 
     const maxLength = 100;
     const c_descrip = description.slice(0, maxLength) + (description.length > maxLength ? '...' : '');
 
-    console.log('preview...', preview);
-
     return (
         <div className='games__games'>
             <div className='game__card-list'>
-
-                <div className='game__card-title'>
-                    <span>Precio: {price}</span>
-                </div>
 
                 <div className='game__card'>
                     <div className='game__card-img'>
@@ -31,13 +25,28 @@ const CardGames = ({ preview, price, description, name, img }) => {
                     <h4 className='card__category-body-title'>{name}</h4>
                 </div>
 
-                <div className='game__card-body'>
-                    <div className='game__card-description'>
+                <section className='game__card-body-content'>
 
-                        <p>{c_descrip}</p>
+                    {plataform && plataform.map(plataform => {
+                        return (
+                            <span className='game__card-description-plataform' key={plataform}>{plataform}</span>
+                        )
+                    })
+
+                    }
+
+                    <div className='game__card-title'>
+
+                        <span className='game__card-descuento'>${price} USD</span>
+                        <span className='game__card-price'>${price} USD</span>
+
                     </div>
 
-                </div>
+
+
+                </section>
+
+
 
             </div>
         </div>

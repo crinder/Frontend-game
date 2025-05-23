@@ -2,12 +2,13 @@ import { React, useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import Global from '../Utils/Global';
 import Reviews from './Reviews';
-import { addItem, getItem } from '../Utils/Indexed';
+import { useAuth } from '../Context/authContext'
 
 const View = () => {
 
     const location = useLocation();
     const id = location.state.id;
+    const {addGame, getItem} = useAuth();
 
     const [game, setGame] = useState([]);
 
@@ -33,8 +34,9 @@ const View = () => {
 
     }
 
-    const addList = async (game) => {
-        await addItem(game);
+    const addList = async (e,game) => {
+        e.preventDefault(); 
+        await addGame(game);
     }
 
 
@@ -69,7 +71,7 @@ const View = () => {
                                     </div>
 
                                     <div className='game__view-body-button'>
-                                        <button className="button" onClick={e => addList(game)}>Agregar a lista</button>
+                                        <button className="button" onClick={e => addList(e,game)}>Agregar a lista</button>
                                     </div>
 
                                     <div className='game__view-body-description'>

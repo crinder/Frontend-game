@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import Global from '../Utils/Global';
-import {  getToken, saveToken, countGames, getAllGames, deleteItem } from '../Utils/Indexed';
+import {  getToken, saveToken, countGames, getAllGames, deleteItem, addItem } from '../Utils/Indexed';
 
 
 const Context = createContext();
@@ -14,6 +14,7 @@ export const AuthContext = ({children}) => {
     const [existe, setExiste] = useState(true);
     const [count, setCount] = useState(0);
     const [cart, setCart] = useState([]);
+    const [actShopping, setActShopping] = useState(false);
     let headers;
 
     const checkAuth = async () =>{
@@ -87,13 +88,21 @@ export const AuthContext = ({children}) => {
         const request = await getAllGames();
         return request;
     }
+
+    const addGame = async (game) => {
+        await addItem(game);
+        await devuelveCount();
+        setActShopping(true);
+    }
     
     /*console.log(token);
     console.log(loading);
     console.log(existe);*/
 
   return (
-    <Context.Provider value={{token,loading,cargando,existe,count,setCount,deleteGame,devuelveCart,cart}}>
+    <Context.Provider value={{token,loading,cargando,existe,count,setCount,deleteGame,devuelveCart,cart,
+                                addGame,actShopping,setActShopping
+    }}>
         {children}
     </Context.Provider>
   )

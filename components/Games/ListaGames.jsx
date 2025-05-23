@@ -3,15 +3,15 @@ import Global from '../Utils/Global';
 import CardGames from './CardGames';
 import { useNavigate } from 'react-router-dom';
 import FadeInOnScroll from '../Utils/FadeInOnScroll';
+import Skeleton from 'react-loading-skeleton';
 
 const ListDescuento = ({ children, threshold = 0.2, rootMargin = '0px' }) => {
 
   const [isOpenCategoria, setIsOpenCategoria] = useState(false);
   const [isOpenDescuentos, setIsOpenDescuentos] = useState(false);
   const [isOpenPrecio, setIsOpenPrecio] = useState(false);
-  const [isReady, setIsReady] = useState(false);
   const [games, setGames] = useState([]);
-  const [preview, setPreview] = useState(null);
+  const [categories, setCategories] = useState([]);
   const navigate = useNavigate();
   const [loadingGames, setLoadingGames] = useState(true);
 
@@ -28,8 +28,8 @@ const ListDescuento = ({ children, threshold = 0.2, rootMargin = '0px' }) => {
   };
 
   useEffect(() => {
+    devuelveCategories();
     devuelveGames();
-    console.log('devuelve games...');
   }, []);
 
   const devuelveGames = async () => {
@@ -54,6 +54,22 @@ const ListDescuento = ({ children, threshold = 0.2, rootMargin = '0px' }) => {
     navigate('/ultra-games/detalle-game/', { state: { id } });
   }
 
+  const devuelveCategories = async () => {
+    const request = await fetch(Global.url + 'category/list', {
+      method: 'GET',
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+
+    const data = await request.json();
+
+    if (data.status == 'success') {
+      setCategories(data.category);
+    }
+
+  }
+
   return (
     <div className='div__container'>
 
@@ -73,24 +89,14 @@ const ListDescuento = ({ children, threshold = 0.2, rootMargin = '0px' }) => {
               {isOpenCategoria && (
                 <nav className='nav__filter-item-nav'>
                   <ul className='nav__filter-item-list'>
-                    <li className='nav__filter-item-opc-item'>
-                      <div className='nav__filter-item-opc-item-container'>
-                        <input type="checkbox" name="categoria" id="categoria" />
-                        <label htmlFor="categoria" className='nav__filter-label'>Estrategia</label>
-                      </div>
-                    </li>
-                    <li className='nav__filter-item-opc-item'>
-                      <div className='nav__filter-item-opc-item-container'>
-                        <input type="checkbox" name="categoria" id="categoria" />
-                        <label htmlFor="categoria" className='nav__filter-label'>Aventura</label>
-                      </div>
-                    </li>
-                    <li className='nav__filter-item-opc-item'>
-                      <div className='nav__filter-item-opc-item-container'>
-                        <input type="checkbox" name="categoria" id="categoria" />
-                        <label htmlFor="categoria" className='nav__filter-label'>RPG</label>
-                      </div>
-                    </li>
+                    {categories.map(category => (
+                      <li className='nav__filter-item-opc-item' key={category._id}>
+                        <div className='nav__filter-item-opc-item-container'>
+                          <input type="checkbox" name="categoria" id={category._id} />
+                          <label htmlFor={category._id} className='nav__filter-label'>{category.name}</label>
+                        </div>
+                      </li>
+                    ))}
                   </ul>
                 </nav>
               )}
@@ -161,25 +167,32 @@ const ListDescuento = ({ children, threshold = 0.2, rootMargin = '0px' }) => {
 
         <div className='list__list'>
           {loadingGames ? (
-            <p>Cargando juegos...</p> // Mensaje de carga
-          ) : (
+             <Skeleton
+             count={4}
+             baseColor="#e9e8e8"
+             highlightColor="#ffffff"
+             containerClassName="my-custom-skeleton-card-container"
+             height={400}
+             width={300}
+           />):(
             games.length > 0 ? (
               games.map(game => (
-                // ¡AQUÍ ES DONDE USAS FADEINOPSCROLL PARA CADA ITEM!
-                <FadeInOnScroll key={game._id}> {/* Usa game._id como key */}
+                <FadeInOnScroll key={game._id}> {}
                   <div className='list__games' onClick={() => viewDeatail(game._id)}>
                     <CardGames
-                      preview={'E'} // ¿Qué significa 'E'? Asegúrate de que sea lo que esperas
+                      preview={'E'} 
                       price={game.price}
                       description={game.description}
                       name={game.name}
-                      img={game.image} // Asumiendo que game.image es la URL de la imagen
+                      img={game.image}
+                      descuento={game.descuento}
+                      plataform={game.plataforma}
                     />
                   </div>
                 </FadeInOnScroll>
               ))
             ) : (
-              <p>No se encontraron juegos.</p> // Mensaje si no hay juegos
+              <p>No se encontraron juegos.</p>
             )
           )}
         </div>

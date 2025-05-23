@@ -1,6 +1,6 @@
-import { React, useState, useEffect, useRef } from 'react';
+import { React, useState, useEffect, useRef, use } from 'react';
 import { IconClose, IconShopping, Icondelete } from '../Utils/Icons';
-import { devuelveMetodoDePago} from '../Utils/Indexed';
+import { devuelveMetodoDePago } from '../Utils/Indexed';
 import { useAuth } from '../Context/authContext'
 import Global from '../Utils/Global';
 
@@ -11,9 +11,12 @@ const Shopping = () => {
     const [metodosDePago, setMetodosDePago] = useState([]);
     const selectedMethod = 'Binance';
     const [games, setGames] = useState([]);
-    const {devuelveCart,deleteGame} = useAuth();
+    const { devuelveCart, deleteGame, actShopping, setActShopping } = useAuth();
 
     useEffect(() => {
+
+        console.log('cart...');
+
         const metodos = async () => {
             const request = await devuelveMetodoDePago();
             console.log('metodos...', request);
@@ -36,6 +39,16 @@ const Shopping = () => {
     }
 
     useEffect(() => {
+
+        if (actShopping) {
+            devuelveGames();
+            setActShopping(false);
+        }
+
+    }, [actShopping]);
+
+    useEffect(() => {
+
         if (isOpenGames) {
             document.body.style.overflow = 'hidden';
             document.addEventListener('mousedown', handleClickOutside);
@@ -48,11 +61,10 @@ const Shopping = () => {
             document.body.style.overflow = 'auto';
             document.removeEventListener('mousedown', handleClickOutside);
         };
+
     }, [isOpenGames]);
 
     const handleClickOutside = (event) => {
-
-        console.log(cartRef.current.contains(event.target));
 
         if (cartRef.current && !cartRef.current.contains(event.target)) {
             setIsOpenGames(false);
@@ -146,9 +158,17 @@ const Shopping = () => {
                                             <div className='shopping__cart-games-item-name'>
                                                 <span className='shopping__cart-games-item-name-title'>{game.value.name}</span>
                                                 <span className='shopping__cart-games-item-name-price'>${game.value.price}.00  USD</span>
-                                                <div className='game__view-category-container shopping__cart-plataform'>
-                                                    <span className='game__view-category shopping__cart-plataform-p'>{game.value.plataforma}</span>
-                                                </div>
+                                                <section className='game__card-body-content'>
+
+                                                    {game.value.plataforma && game.value.plataforma.map(plataform => {
+                                                        return (
+                                                            <span className='game__card-description-plataform' key={plataform}>{plataform}</span>
+                                                        )
+                                                    })
+
+                                                    }
+                                                    
+                                                </section>
                                             </div>
                                             <div className='shopping__cart-games-item-delete'>
                                                 <span className='shopping__cart-games-item-delete-span' onClick={() => deletegames(game.value._id)}><Icondelete /></span>
