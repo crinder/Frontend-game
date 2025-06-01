@@ -4,6 +4,8 @@ import CardGames from './CardGames';
 import { useNavigate } from 'react-router-dom';
 import FadeInOnScroll from '../Utils/FadeInOnScroll';
 import Skeleton from 'react-loading-skeleton';
+import ReactPaginate from 'react-paginate';
+import { IconArrowLeft, IconArrowRights } from '../Utils/Icons';
 
 const ListDescuento = ({ children, threshold = 0.2, rootMargin = '0px' }) => {
 
@@ -14,6 +16,8 @@ const ListDescuento = ({ children, threshold = 0.2, rootMargin = '0px' }) => {
   const [categories, setCategories] = useState([]);
   const navigate = useNavigate();
   const [loadingGames, setLoadingGames] = useState(true);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
   const toggleCategoria = () => {
     setIsOpenCategoria(!isOpenCategoria);
@@ -34,8 +38,14 @@ const ListDescuento = ({ children, threshold = 0.2, rootMargin = '0px' }) => {
 
   const devuelveGames = async () => {
 
+    const body = {
+      page: page,
+      limit: 12
+    }
+
     const request = await fetch(Global.url + 'game/list', {
-      method: 'GET',
+      method: 'POST',
+      body: JSON.stringify(body),
       headers: {
         "Content-Type": "application/json"
       }
@@ -46,8 +56,8 @@ const ListDescuento = ({ children, threshold = 0.2, rootMargin = '0px' }) => {
     if (data.status == 'success') {
       setGames(data.game);
       setLoadingGames(false);
+      setTotalPages(data.total);
     }
-
   }
 
   const viewDeatail = (id) => {
@@ -70,8 +80,16 @@ const ListDescuento = ({ children, threshold = 0.2, rootMargin = '0px' }) => {
 
   }
 
+  const cambiarPagina = ({ selected }) => {
+    setPage(selected + 1);
+  }
+
+  useEffect(() => {
+    devuelveGames();
+  }, [page]);
+
   return (
-    <div className='div__container'>
+    <div className='div__container games__games-container'>
 
       <div className='div__title'>
         <span className='div__title-text'>Listado</span>
@@ -167,20 +185,14 @@ const ListDescuento = ({ children, threshold = 0.2, rootMargin = '0px' }) => {
 
         <div className='list__list'>
           {loadingGames ? (
-             <Skeleton
-             count={4}
-             baseColor="#e9e8e8"
-             highlightColor="#ffffff"
-             containerClassName="my-custom-skeleton-card-container"
-             height={400}
-             width={300}
-           />):(
+            <Skeleton count={4} baseColor="#e9e8e8" highlightColor="#ffffff" containerClassName="my-custom-skeleton-card-container"
+              height={400} width={300} />) : (
             games.length > 0 ? (
               games.map(game => (
-                <FadeInOnScroll key={game._id}> {}
+                <FadeInOnScroll key={game._id}> { }
                   <div className='list__games' onClick={() => viewDeatail(game._id)}>
                     <CardGames
-                      preview={'E'} 
+                      preview={'E'}
                       price={game.price}
                       description={game.description}
                       name={game.name}
@@ -191,11 +203,23 @@ const ListDescuento = ({ children, threshold = 0.2, rootMargin = '0px' }) => {
                   </div>
                 </FadeInOnScroll>
               ))
+
             ) : (
               <p>No se encontraron juegos.</p>
             )
           )}
+
         </div>
+      </div>
+      <div className='paginacion-games'>
+        <ReactPaginate
+          previousLabel={<IconArrowLeft />}
+          nextLabel={<IconArrowRights />}
+          pageCount={totalPages}
+          onPageChange={cambiarPagina}
+          containerClassName={"paginacion-content"}
+          activeClassName={"pagina-activa"}
+        />
       </div>
     </div>
   )

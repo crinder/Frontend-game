@@ -37,17 +37,18 @@ const CardGames = ({ preview, price, description, name, img, descuento, platafor
 
                     <div className='game__card-title'>
 
-                        <span className='game__card-descuento'>${price} USD</span>
-                        <span className='game__card-price'>${price} USD</span>
+                        {descuento != '0' ?
+                            <div>
+                                <span className='game__card-descuento'>${price} USD</span>
+                                <span className='game__card-price'>${price} USD</span>
+                            </div>
+                            :
+                            <span className='game__card-price'>${price} USD</span>
+
+                        }
 
                     </div>
-
-
-
                 </section>
-
-
-
             </div>
         </div>
     )
