@@ -6,30 +6,21 @@ import FadeInOnScroll from '../Utils/FadeInOnScroll';
 import Skeleton from 'react-loading-skeleton';
 import ReactPaginate from 'react-paginate';
 import { IconArrowLeft, IconArrowRights } from '../Utils/Icons';
+import NavGames from './NavGames';
 
-const ListDescuento = ({ children, threshold = 0.2, rootMargin = '0px' }) => {
+const ListDescuento = () => {
 
-  const [isOpenCategoria, setIsOpenCategoria] = useState(false);
-  const [isOpenDescuentos, setIsOpenDescuentos] = useState(false);
-  const [isOpenPrecio, setIsOpenPrecio] = useState(false);
+
   const [games, setGames] = useState([]);
   const [categories, setCategories] = useState([]);
   const navigate = useNavigate();
   const [loadingGames, setLoadingGames] = useState(true);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-
-  const toggleCategoria = () => {
-    setIsOpenCategoria(!isOpenCategoria);
-  };
-
-  const toggleDescuentos = () => {
-    setIsOpenDescuentos(!isOpenDescuentos);
-  };
-
-  const togglePrecio = () => {
-    setIsOpenPrecio(!isOpenPrecio);
-  };
+  const [categorieSelected, setCategorieSelected] = useState([]);
+  const [desde, setDesde] = useState(0);
+  const [hasta, setHasta] = useState(0);
+  const [descuentoEspecial, setDescuentoEspecial] = useState(0);
 
   useEffect(() => {
     devuelveCategories();
@@ -38,9 +29,25 @@ const ListDescuento = ({ children, threshold = 0.2, rootMargin = '0px' }) => {
 
   const devuelveGames = async () => {
 
-    const body = {
+    let body = {
       page: page,
-      limit: 12
+      limit: 12,
+    };
+
+    if (categorieSelected.length > 0) {
+      body.category = categorieSelected;
+    }
+
+    if (desde > 0) {
+      body.price_from = desde;
+    }
+
+    if (hasta > 0) {
+      body.price_to = hasta;
+    }
+
+    if (descuentoEspecial > 0) {
+      body.descuento = descuentoEspecial;
     }
 
     const request = await fetch(Global.url + 'game/list', {
@@ -88,6 +95,14 @@ const ListDescuento = ({ children, threshold = 0.2, rootMargin = '0px' }) => {
     devuelveGames();
   }, [page]);
 
+  useEffect(() => {
+
+    setTimeout(() => {
+      devuelveGames();
+    }, 3000);
+
+  }, [categorieSelected, desde, hasta, descuentoEspecial]);
+
   return (
     <div className='div__container games__games-container'>
 
@@ -96,92 +111,9 @@ const ListDescuento = ({ children, threshold = 0.2, rootMargin = '0px' }) => {
       </div>
 
       <div className='games__container'>
-        <div className='nav__filter'>
-          <span className='nav__filter-text'>Filtrar por: </span>
-          <div className='nav__filter-list'>
-            <div className='nav__filter-item'>
-              <div className='nav__filter-item-text' onClick={toggleCategoria}>
-                Categoria
-                <span className={`arrow ${isOpenCategoria ? 'up' : 'down'}`}></span>
-              </div>
-              {isOpenCategoria && (
-                <nav className='nav__filter-item-nav'>
-                  <ul className='nav__filter-item-list'>
-                    {categories.map(category => (
-                      <li className='nav__filter-item-opc-item' key={category._id}>
-                        <div className='nav__filter-item-opc-item-container'>
-                          <input type="checkbox" name="categoria" id={category._id} />
-                          <label htmlFor={category._id} className='nav__filter-label'>{category.name}</label>
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-                </nav>
-              )}
-            </div>
 
-            <div className='nav__filter-item'>
-              <div className='nav__filter-item-text' onClick={toggleDescuentos}>
-                Descuentos
-                <span className={`arrow ${isOpenDescuentos ? 'up' : 'down'}`}></span>
-              </div>
-              {isOpenDescuentos && (
-                <nav className='nav__filter-item-nav'>
-                  <ul className='nav__filter-item-list'>
-                    <li className='nav__filter-item-opc-item'>
-                      <div className='nav__filter-item-opc-item-container'>
-                        <input type="checkbox" name="descuentos" id="descuentos" />
-                        <label htmlFor="descuentos" className='nav__filter-label'>Menos 10%</label>                  </div>
-                    </li>
-                    <li className='nav__filter-item-opc-item'>
-                      <div className='nav__filter-item-opc-item-container'>
-                        <input type="checkbox" name="descuentos" id="descuentos" />
-                        <label htmlFor="descuentos" className='nav__filter-label'>Menos 15%</label>
-                      </div>
-                    </li>
-                    <li className='nav__filter-item-opc-item'>
-                      <div className='nav__filter-item-opc-item-container'>
-                        <input type="checkbox" name="descuentos" id="descuentos" />
-                        <label htmlFor="descuentos" className='nav__filter-label'>Menos 20%</label>
-                      </div>
-                    </li>
-                  </ul>
-                </nav>
-              )}
-            </div>
-
-            <div className='nav__filter-item'>
-              <div className='nav__filter-item-text' onClick={togglePrecio}>
-                Precio
-                <span className={`arrow ${isOpenPrecio ? 'up' : 'down'}`}></span>
-              </div>
-              {isOpenPrecio && (
-                <nav className='nav__filter-item-nav'>
-                  <ul className='nav__filter-item-list'>
-                    <li className='nav__filter-item-opc-item'>
-                      <div className='nav__filter-item-opc-item-container'>
-                        <input type="checkbox" name="precio" id="precio" />
-                        <label htmlFor="precio" className='nav__filter-label'>Menos 10$</label>
-                      </div>
-                    </li>
-                    <li className='nav__filter-item-opc-item'>
-                      <div className='nav__filter-item-opc-item-container'>
-                        <input type="checkbox" name="precio" id="precio" />
-                        <label htmlFor="precio" className='nav__filter-label'>Menos 15$</label>
-                      </div>
-                    </li>
-                    <li className='nav__filter-item-opc-item'>
-                      <div className='nav__filter-item-opc-item-container'>
-                        <input type="checkbox" name="precio" id="precio" />
-                        <label htmlFor="precio" className='nav__filter-label'>Menos 20$</label>
-                      </div>
-                    </li>
-                  </ul>
-                </nav>
-              )}
-            </div>
-          </div>
-        </div>
+        <NavGames categories={categories} categorieSelected={categorieSelected} setCategorieSelected={setCategorieSelected}
+                  desde={desde} setDesde={setDesde} hasta={hasta} setHasta={setHasta} descuentoEspecial={descuentoEspecial} setDescuentoEspecial={setDescuentoEspecial} />
 
         <div className='list__list'>
           {loadingGames ? (
