@@ -26,7 +26,24 @@ const Admin = () => {
                         className='card__admin-header-img'/>
                         <div class="card__admin-header-descrip">
                             <div class="card__admin-header-descrip-title">
-                                <p class="card__admin-header-title">Administrar slider</p>
+                                <p class="card__admin-header-title">Slider principal</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card__content">
+                        <p class="card__title"></p>
+                        <p class="card__description">Puedes crear, editar y eliminar sliders y darle el orden que desees solo arrastra y suelta.</p>
+                    </div>
+                </div>
+
+                <div class="card" onClick={() => goComponent('admin-slider-destacados')}>
+                    <div class="card__admin-header">
+                        <img src="https://wallup.net/wp-content/uploads/2019/10/254647-angels-devil-may-cry-vergil-dmc.jpg" alt="" 
+                        className='card__admin-header-img'/>
+                        <div class="card__admin-header-descrip">
+                            <div class="card__admin-header-descrip-title">
+                                <p class="card__admin-header-title">Momentos destacados</p>
                             </div>
                         </div>
                     </div>

@@ -15,7 +15,7 @@ const Container = () => {
   const devuelveSlider = async () => {
 
     const request = await fetch(Global.url + 'slider/list', {
-      method: 'GET',
+      method: 'POST',
       headers: {
         "Content-Type": "application/json"
       }

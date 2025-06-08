@@ -34,7 +34,7 @@ const Routing = () => {
                 <Route path='editar-games' element={<EditarGame />} />
                 <Route path='list-games' element={<ListGames />} />
                 <Route path='detalle-game' element={<View />} />
-                <Route path='admin-slider' element={<Slider />} />
+                <Route path='admin-slider-destacados' element={<Slider />} />
                 <Route path='admin-editar-slider' element={<EditarSlider />} />
                 <Route path='preview-slider' element={<PreviewSlider />} />
                 <Route path='shopping-cart' element={<Shopping />} />

@@ -55,8 +55,15 @@ const EditarSlider = () => {
 
     const devuelveSlider = async () => {
 
+        let body = {
+            page: 1,
+            limit: 999,
+            destacado: 'S'
+        };
+
         const request = await fetch(Global.url + 'slider/list', {
-            method: 'GET',
+            method: 'POST',
+            body: JSON.stringify(body),
             headers: {
                 "Content-Type": "application/json"
             }

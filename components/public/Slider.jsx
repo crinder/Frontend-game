@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Global from '../Utils/Global';
+import { IconRocket } from '../Utils/Icons';
 
 const Slider = ({ images }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -28,11 +29,22 @@ const Slider = ({ images }) => {
           <img key={index} src={Global.url + 'slider/images/' + image.image} alt={`Slide ${index + 1}`} style={{ width: '100%', flexShrink: 0 }} />
         ))}
       </div>
-      <button onClick={goToPrevious} style={{ position: 'absolute', top: '50%', left: '10px', transform: 'translateY(-50%)' }}>
-        Anterior
+      <button className='button__slider-right button__rocket' onClick={goToPrevious}>
+        <div class="svg-wrapper-1">
+          <div class="svg-wrapper">
+            <IconRocket w={24} h={24} />
+          </div>
+        </div>
+        <span>Anterior</span>
       </button>
-      <button onClick={goToNext} style={{ position: 'absolute', top: '50%', right: '10px', transform: 'translateY(-50%)' }}>
-        Siguiente
+
+      <button className='button__slider-left button__rocket' onClick={goToNext}>
+        <div class="svg-wrapper-1">
+          <div class="svg-wrapper">
+            <IconRocket w={24} h={24} />
+          </div>
+        </div>
+        <span>Siguiente</span>
       </button>
     </div>
   );

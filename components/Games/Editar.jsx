@@ -152,7 +152,7 @@ const Editar = () => {
 
   const buscarCate = async () => {
     const request = await fetch(Global.url + 'category/list', {
-      method: 'GET',
+      method: 'POST',
       headers: {
         "Content-Type": "application/json"
       }
