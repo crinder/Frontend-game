@@ -1,10 +1,11 @@
-import { React, use, useEffect, useState } from 'react'
+import { React, useEffect, useState } from 'react'
 import { IconCategory } from '../Utils/Icons';
 import Dropzone from '../Utils/Dropzone';
 import { useNavigate } from 'react-router-dom';
 import Select from 'react-select';
 import global from '../Utils/Global';
 import CardGames from '../Games/CardGames';
+import Button from '../Utils/Button';
 
 const Crear = () => {
     const navigate = useNavigate();
@@ -242,11 +243,16 @@ const Crear = () => {
                             <CardGames preview={preview} price={price} description={description} name={name} />
                         }
 
+
+
+
                         <div className='category__button'>
                             <div className='category__submit'>
-                                <button className="button" onClick={handleSubmit} disabled={isUploading}>
-                                    <p>{isUploading ? 'Subiendo...' : 'Crear juego'}</p>
-                                </button>
+
+                                <Button handleSubmit={handleSubmit} isUploading={isUploading}>
+                                    {isUploading ? 'Subiendo...' : 'Crear juego'}
+                                </Button>
+                               
                             </div>
                         </div>
                     </div>

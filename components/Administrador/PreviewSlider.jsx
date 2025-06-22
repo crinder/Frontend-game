@@ -1,6 +1,7 @@
 import { React, useState, useEffect, useRef } from 'react'
 import Global from '../Utils/Global';
 import { useLocation } from 'react-router-dom';
+import { IconRocket } from '../Utils/Icons';
 
 const PreviewSlider = () => {
 
@@ -37,16 +38,27 @@ const PreviewSlider = () => {
                         item.image ?
                             <img src={Global.url + 'slider/images/' + item.image} alt="Card" style={{ width: '100%', flexShrink: 0 }} />
                             :
-                            <img src={item.url} alt="Card"  style={{ width: '100%', flexShrink: 0 }}/>
+                            <img src={item.url} alt="Card" style={{ width: '100%', flexShrink: 0 }} />
                     )
 
                 })}
             </div>
-            <button onClick={goToPrevious} style={{ position: 'absolute', top: '50%', left: '10px', transform: 'translateY(-50%)' }}>
-                Anterior
+            <button className='button__slider-right button__rocket' onClick={goToPrevious}>
+                <div class="svg-wrapper-1">
+                    <div class="svg-wrapper">
+                        <IconRocket w={24} h={24} />
+                    </div>
+                </div>
+                <span>Anterior</span>
             </button>
-            <button onClick={goToNext} style={{ position: 'absolute', top: '50%', right: '10px', transform: 'translateY(-50%)' }}>
-                Siguiente
+
+            <button className='button__slider-left button__rocket' onClick={goToNext}>
+                <div class="svg-wrapper-1">
+                    <div class="svg-wrapper">
+                        <IconRocket w={24} h={24} />
+                    </div>
+                </div>
+                <span>Siguiente</span>
             </button>
         </div>
 

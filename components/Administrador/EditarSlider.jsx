@@ -4,6 +4,7 @@ import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 import Dropzone from './Dropzone';
 import PreviewDnD from './PreviewDnD';
 import { useLocation, useNavigate } from 'react-router-dom';
+import Button from '../Utils/Button';
 
 const EditarSlider = () => {
 
@@ -224,11 +225,11 @@ const EditarSlider = () => {
                 <h2>Slider</h2>
                 <Dropzone onFileSelected={handleFilesSelected} />
             </section>
-            <div className='category__button' onClick={handleSubmit}>
+            <div className='category__button'>
                 <div className='category__submit'>
-                    <button className="button">
-                        <p> Confirmar{isUploading ? 'Subiendo...' : ''}</p>
-                    </button>
+                    <Button handleSubmit={handleSubmit} isUploading={isUploading}>
+                        <p>{isUploading ? 'Subiendo...' : 'Confirmar'}</p>
+                    </Button>
                 </div>
             </div>
         </div>

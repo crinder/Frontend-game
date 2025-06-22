@@ -1,11 +1,11 @@
-import React, { createContext, useContext, useEffect, useState } from 'react'
+import React, { createContext, use, useContext, useEffect, useState } from 'react'
 import Global from '../Utils/Global';
-import {  getToken, saveToken, countGames, getAllGames, deleteItem, addItem } from '../Utils/Indexed';
+import { getToken, saveToken, countGames, getAllGames, deleteItem, addItem } from '../Utils/Indexed';
 
 
 const Context = createContext();
 
-export const AuthContext = ({children}) => {
+export const AuthContext = ({ children }) => {
 
 
     const [token, setToken] = useState(false);
@@ -15,62 +15,48 @@ export const AuthContext = ({children}) => {
     const [count, setCount] = useState(0);
     const [cart, setCart] = useState([]);
     const [actShopping, setActShopping] = useState(false);
+    const [id_usuario, setId_usuario] = useState(null);
     let headers;
 
-    const checkAuth = async () =>{
+    const checkAuth = async () => {
 
-            if(!token){
-                headers = {
-                    "Content-type": 'application/json'
-                }
+        if (!token) {
+            headers = {
+                "Content-type": 'application/json'
             }
-    
-            const request = await fetch(Global.url+'temp/token',{
-                method: 'GET',
-                headers
-            });
-    
-            const data = await request.json();
-    
-            if(data.status == 'success'){
-    
-                setToken(data.token);
-                setCargando(false);
-                setExiste(true);
-                setLoading(false);
-                saveToken(data.token);
-            }else{
-                setCargando(false);
-                setExiste(false);
-                setLoading(false);
+        } else {
+            headers = {
+                "Content-type": 'application/json',
+                'authorization': token
             }
-    }
+        }
 
-    useEffect(() =>{
-        
-        devuelveToken();
-        devuelveCount();
+        const request = await fetch(Global.url + 'user/refresh', {
+            method: 'GET',
+            headers,
+            credentials: 'include'
+        });
 
-    },[]);
+        const data = await request.json();
 
-    const devuelveToken = async () => {
-        
-        const token = await getToken();
+        if (data.status == 'success') {
 
-        console.log('token...',token);
-
-        if(token){
-            setToken(token);
+            setToken(data.token);
             setCargando(false);
             setExiste(true);
-            setLoading(false);      
-        }else{
+            setLoading(false);
+            setId_usuario(data.id_user);
+        } else {
             setCargando(false);
             setExiste(false);
-            setLoading(false);          
-            checkAuth();
-        }        
+            setLoading(false);
+            setId_usuario(false);
+        }
     }
+
+    useEffect(() => {
+        devuelveCount();
+    }, []);
 
     const devuelveCount = async () => {
 
@@ -94,18 +80,31 @@ export const AuthContext = ({children}) => {
         await devuelveCount();
         setActShopping(true);
     }
-    
+
+    useEffect(() => {
+        if (!token) {
+            checkAuth();
+        }
+    }, [token]);
+
+    useEffect(() => {
+        setTimeout(() => {
+            checkAuth();
+        }, 10 * 60 * 100);
+    }, []);
+
     /*console.log(token);
     console.log(loading);
     console.log(existe);*/
 
-  return (
-    <Context.Provider value={{token,loading,cargando,existe,count,setCount,deleteGame,devuelveCart,cart,
-                                addGame,actShopping,setActShopping
-    }}>
-        {children}
-    </Context.Provider>
-  )
+    return (
+        <Context.Provider value={{
+            token, loading, cargando, existe, count, setCount, deleteGame, devuelveCart, cart,
+            addGame, actShopping, setActShopping,id_usuario
+        }}>
+            {children}
+        </Context.Provider>
+    )
 }
 
 export const useAuth = () => useContext(Context);

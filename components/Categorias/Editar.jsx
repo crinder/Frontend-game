@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import Dropzone from '../Utils/Dropzone';
 import Images from '../Utils/Images';
 import { IconReturn } from '../Utils/Icons';
+import Button from '../Utils/Button';
 
 const Editar = () => {
 
@@ -112,17 +113,22 @@ const Editar = () => {
 
                             < Dropzone onFileSelected={fileSelected} />
 
-                            <div className='category__button'>
+                            <div className='category__button game__button'>
+
                                 <div className='category__submit'>
-                                    <button className="button" onClick={handleSubmit}>
-                                        <p>Editar</p>
-                                    </button>
-                                </div>
-                                <div className='category__submit'>
-                                    <button className="button" onClick={handleDelete}>
+                                    <Button handleSubmit={handleDelete} isUploading={isUploading}>
                                         <p>Eliminar</p>
-                                    </button>
+                                    </Button>
                                 </div>
+
+                                <div className='category__submit'>
+
+                                    <Button handleSubmit={handleSubmit} isUploading={isUploading}>
+                                        <p>{isUploading ? 'Subiendo...' : 'Editar juego'}</p>
+                                    </Button>
+
+                                </div>
+
                             </div>
 
                         </div>

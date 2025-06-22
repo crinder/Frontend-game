@@ -7,6 +7,7 @@ import logo7 from '../../src/img/logo_space7.png';
 import CountGames from '../Utils/CountGames';
 import Shopping from '../Games/Shopping';
 import { useNavigate } from 'react-router-dom';
+import Login from './Login';
 
 
 const Header = () => {
@@ -33,7 +34,7 @@ const Header = () => {
         <nav className='header__right'>
           <ul className='header__menu'>
             <li className='hearder__menu-list'><Search /></li>
-            <li className='hearder__menu-list'><IconUser /></li>
+            <li className='hearder__menu-list'><Login /></li>
             <li className='hearder__menu-list' onClick={() => navigate('/ultra-games/admin-games')}><IconAdmin /></li>
             <li className='hearder__menu-list '><Shopping /><CountGames /></li>
           </ul>

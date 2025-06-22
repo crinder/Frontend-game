@@ -40,11 +40,10 @@ const CardGames = ({ preview, price, description, name, img, descuento, platafor
                         {descuento != '0' ?
                             <div>
                                 <span className='game__card-descuento'>${price} USD</span>
-                                <span className='game__card-price'>${price * 1 - descuento / 100} USD</span>
+                                <span className='game__card-price'>${price - (price * descuento /100)} USD</span>
                             </div>
                             :
                             <span className='game__card-price'>${price} USD</span>
-
                         }
 
                     </div>

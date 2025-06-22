@@ -3,6 +3,7 @@ import { IconClose, IconShopping, Icondelete } from '../Utils/Icons';
 import { devuelveMetodoDePago } from '../Utils/Indexed';
 import { useAuth } from '../Context/authContext'
 import Global from '../Utils/Global';
+import GoogleAuth from '../Utils/googleAuth';
 
 const Shopping = () => {
 
@@ -11,15 +12,15 @@ const Shopping = () => {
     const [metodosDePago, setMetodosDePago] = useState([]);
     const selectedMethod = 'Binance';
     const [games, setGames] = useState([]);
-    const { devuelveCart, deleteGame, actShopping, setActShopping } = useAuth();
+    const [totalGeneral, setTotalGeneral] = useState(0);
+    const [descuentos, setDescuentos] = useState([]);
+    const [totalDescuentos, setTotalDescuentos] = useState(0);
+    const { token, isLoading, devuelveCart, deleteGame, actShopping, setActShopping } = useAuth();
 
     useEffect(() => {
 
-        console.log('cart...');
-
         const metodos = async () => {
             const request = await devuelveMetodoDePago();
-            console.log('metodos...', request);
             setMetodosDePago(request);
         }
         metodos();
@@ -30,6 +31,19 @@ const Shopping = () => {
 
     const devuelveGames = async () => {
         const request = await devuelveCart();
+
+        let total = 0;
+        let descuento = 0;
+
+        request.map(game => {
+            total += game.value.price;
+            descuento += game.value.price * game.value.descuento / 100;
+        });
+
+        setTotalGeneral(total);
+        setDescuentos(descuento);
+        setTotalDescuentos(total - descuento);
+
         setGames(request);
     }
 
@@ -97,24 +111,24 @@ const Shopping = () => {
                             <div className='shopping__cart-totales'>
 
                                 <div className='shopping__cart-totales-subtotal'>
-                                    <span className='shopping__cart-totales-subtotal-title'>Subtotal</span>
-                                    <span className='shopping__cart-totales-subtotal-price'>$0</span>
+                                    <h4 className='shopping__cart-totales-subtotal-title'><span >Subtotal:</span></h4>
+                                    <span className='shopping__cart-totales-subtotal-price'>${totalGeneral}</span>
                                 </div>
 
                                 <div className='shopping__cart-totales-subtotal'>
-                                    <span className='shopping__cart-totales-subtotal-title'>Descuento</span>
-                                    <span className='shopping__cart-totales-subtotal-price'>$0</span>
+                                    <h4 className='shopping__cart-totales-subtotal-title'><span >Descuento:</span></h4>
+                                    <span className='shopping__cart-totales-subtotal-price'>${descuentos}</span>
                                 </div>
 
                                 <div className='shopping__cart-totales-subtotal'>
-                                    <span className='shopping__cart-totales-subtotal-title'>Total a pagar</span>
-                                    <span className='shopping__cart-totales-subtotal-price'>$0</span>
+                                    <h4 className='shopping__cart-totales-subtotal-title'><span >Total a pagar:</span></h4>
+                                    <span className='shopping__cart-totales-subtotal-price'>${totalDescuentos}</span>
                                 </div>
                             </div>
 
                             <div className='shopping__cart-method-pay'>
                                 <div className='shopping__cart-method-pay-title'>
-                                    <span className='shopping__cart-method-pay-title'>Método de pago</span>
+                                    <span className='shopping__cart-method-pay-title'>Métodos de pago</span>
                                 </div>
 
                                 <div className='shopping__cart-method-pay-select'>
@@ -156,8 +170,12 @@ const Shopping = () => {
                                                 <img className='shopping__cart-games-img' src={Global.url + 'game/images/' + game.value.image} alt="Slider" />
                                             </div>
                                             <div className='shopping__cart-games-item-name'>
-                                                <span className='shopping__cart-games-item-name-title'>{game.value.name}</span>
-                                                <span className='shopping__cart-games-item-name-price'>${game.value.price}.00  USD</span>
+                                                <h4 className='shopping__cart-games-item-name-title'><span >{game.value.name}</span></h4>
+                                                <div className='shopping__list-price'>
+                                                    <span className='game__card-descuento'>{game.value.price} USD</span>
+                                                    <span className=' game__card-price'>{game.value.price - (game.value.price * game.value.descuento / 100)} USD</span>
+                                                </div>
+
                                                 <section className='game__card-body-content'>
 
                                                     {game.value.plataforma && game.value.plataforma.map(plataform => {
@@ -167,7 +185,7 @@ const Shopping = () => {
                                                     })
 
                                                     }
-                                                    
+
                                                 </section>
                                             </div>
                                             <div className='shopping__cart-games-item-delete'>
@@ -178,11 +196,19 @@ const Shopping = () => {
                                 })}
                             </div>
 
-                            <div className='shopping__cart-pay'>
-                                <div className='shopping__cart-pay-title'>
-                                    <span className='shopping__cart-pay-span'>Confirmar compra</span>
+                            {token ? (
+                                <div className='shopping__cart-pay'>
+                                    <div className='shopping__cart-pay-title'>
+                                        <span className='shopping__cart-pay-span'>Confirmar compra</span>
+                                    </div>
                                 </div>
-                            </div>
+                            ) : (
+                                <div className='shopping__cart-pay--auth'>
+                                    <div className='shopping__cart-pay-title'>
+                                        <GoogleAuth Message={'Inicia session para finalizar la compra'} authorize={isOpenGames} setAuthorize={isOpenGames} cargando={isLoading} setCargando={setIsOpenGames} />
+                                    </div>
+                                </div>
+                            )}
 
                         </div>
                     </div>

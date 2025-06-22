@@ -7,6 +7,7 @@ import Skeleton from 'react-loading-skeleton';
 import ReactPaginate from 'react-paginate';
 import { IconArrowLeft, IconArrowRights } from '../Utils/Icons';
 import NavGames from './NavGames';
+import Loading from '../Utils/Loading';
 
 const ListDescuento = () => {
 
@@ -97,9 +98,12 @@ const ListDescuento = () => {
 
   useEffect(() => {
 
+    setLoadingGames(true);
+
     setTimeout(() => {
+      
       devuelveGames();
-    }, 3000);
+    }, 1000);
 
   }, [categorieSelected, desde, hasta, descuentoEspecial]);
 

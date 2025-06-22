@@ -5,6 +5,7 @@ import Dropzone from '../Utils/Dropzone';
 import { IconCategory } from '../Utils/Icons';
 import CardGames from '../Games/CardGames';
 import Select from 'react-select';
+import Button from '../Utils/Button';
 
 const Editar = () => {
 
@@ -123,25 +124,25 @@ const Editar = () => {
       setDescription(data.game.description);
 
       let gamesPlataforma = data.game.plataforma.map(plataforma => {
-                            const foundOption = optionPlataforma.find(opt => opt.value === plataforma);
-                            return foundOption ? foundOption : null;
-                            }).filter(option => option !== null)
+        const foundOption = optionPlataforma.find(opt => opt.value === plataforma);
+        return foundOption ? foundOption : null;
+      }).filter(option => option !== null)
 
       setPlataformaSelected(gamesPlataforma);
-      
+
 
 
       let gamesIdioma = data.game.idioma.map(idioma => {
-                        const foundOption = optionIdioma.find(opt => opt.value === idioma);
-                        return foundOption ? foundOption : null;
-                        }).filter(option => option !== null)
+        const foundOption = optionIdioma.find(opt => opt.value === idioma);
+        return foundOption ? foundOption : null;
+      }).filter(option => option !== null)
 
       setIdiomaSelected(gamesIdioma);
 
       let gamesCategory = data.game.category.map(categoria => {
-                          const foundOption = categories.find(opt => opt.value === categoria);
-                          return foundOption ? foundOption : null;
-                        }).filter(option => option !== null);
+        const foundOption = categories.find(opt => opt.value === categoria);
+        return foundOption ? foundOption : null;
+      }).filter(option => option !== null);
 
       setCategoriaSelected(gamesCategory);
       setOptionSeleted(gamesCategory);
@@ -295,18 +296,22 @@ const Editar = () => {
                 <CardGames preview={'E'} price={price} description={description} name={name} img={game.image} />
               }
 
-              <div className='category__button'>
+              <div className='category__button game__button'>
+                
                 <div className='category__submit'>
-                  <button className="button" onClick={handleSubmit} disabled={isUploading}>
-                    <p>{isUploading ? 'Subiendo...' : 'Editar juego'}</p>
-                  </button>
+                  <Button handleSubmit={handleDelete} isUploading={isUploading}>
+                    <p>Eliminar</p>
+                  </Button>
                 </div>
 
                 <div className='category__submit'>
-                  <button className="button" onClick={handleDelete}>
-                    <p>Eliminar</p>
-                  </button>
+
+                  <Button handleSubmit={handleSubmit} isUploading={isUploading}>
+                    <p>{isUploading ? 'Subiendo...' : 'Editar juego'}</p>
+                  </Button>
+
                 </div>
+
               </div>
             </div>
           </div>

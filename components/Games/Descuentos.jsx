@@ -1,7 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Global from '../Utils/Global';
 import Skeleton from 'react-loading-skeleton';
-import { IconRocket, IconArrowLeft, IconArrowRights } from '../Utils/Icons';
+import { IconArrowLeft, IconArrowRights } from '../Utils/Icons';
+import Button from '../Utils/Button';
+import { useNavigate } from 'react-router-dom';
 
 const Descuentos = () => {
 
@@ -10,6 +12,7 @@ const Descuentos = () => {
     const itemWidth = useRef(0);
     const [images, setImages] = useState([]);
     const [loading, setLoading] = useState(true);
+    const navigate = useNavigate();
 
     const devuelveSlider = async () => {
 
@@ -106,14 +109,11 @@ const Descuentos = () => {
 
             <div className='games__item-acciones'>
                 <span onClick={handlePrev}><IconArrowLeft w={80} h={80} classe={'custom-icon'}/></span>
-                <button className='button__rocket'>
-                    <div class="svg-wrapper-1">
-                        <div class="svg-wrapper">
-                            <IconRocket w={24} h={24} />
-                        </div>
-                    </div>
-                    <span>Ver todos</span>
-                </button>
+                <span onClick={() => navigate('/ultra-games/lista-games')}>
+                <Button >
+                    Ver todos
+                </Button>
+                </span>
                 <span onClick={handleNext}><IconArrowRights w={80} h={80} classe={'custom-icon'} /></span>
             </div>
 

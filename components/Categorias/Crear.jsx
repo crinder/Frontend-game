@@ -2,6 +2,7 @@ import { React, useEffect, useState } from 'react'
 import global from '../Utils/Global';
 import Dropzone from '../Utils/Dropzone';
 import { IconCategory, IconReturn } from '../Utils/Icons';
+import Button from '../Utils/Button';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -75,6 +76,17 @@ const Crear = () => {
 
                     <Dropzone onFileSelected={fileSelected} prewiew={preview} setPreview={setPreview} />
 
+                    <div className='category__button'>
+
+                        <div className='category__submit'>
+
+                            <Button handleSubmit={handleSubmit} isUploading={isUploading}>
+                                {isUploading ? 'Subiendo...' : 'Editar juego'}
+                            </Button>
+
+                        </div>
+                    </div>
+
                     <div className='category__list'>
                         <div className='card__category created__category'>
                             <div className='card__category-img'>
@@ -84,19 +96,9 @@ const Crear = () => {
                                     />
                                 </div>
                                 <div className='card__category-body'>
-
                                     <h4 className='card__category-body-title'>{name}</h4>
-
                                 </div>
                             </div>
-                        </div>
-                    </div>
-
-                    <div className='category__button'>
-                        <div className='category__submit'>
-                            <button className="button" onClick={handleSubmit} disabled={isUploading}>
-                                <p>{isUploading ? 'Subiendo...' : 'Crear categoría'}</p>
-                            </button>
                         </div>
                     </div>
 
