@@ -7,7 +7,9 @@ const Login = () => {
 
     const [isOpen, setIsOpen] = useState(false);
     const loginRef = useRef(null);
-    const { token, isLoading } = useAuth();
+    const { token, isLoading, logout, imgUser } = useAuth();
+
+    console.log(imgUser);
 
     
     const handleClickOutside = (event) => {
@@ -31,13 +33,20 @@ const Login = () => {
     
         }, [isOpen]);
 
+    const logoutUser = async () => {
+        await logout();
+        setIsOpen(false);
+    }
+
 
     return (
         <div>
             <div className='div__login'>
                 <div className='login__container' ref={loginRef}>
                     <div className='login__header'>
-                        <span className='title__color' onClick={() => setIsOpen(!isOpen)}><IconUser /></span>
+                        <span className={!token ? 'title__color' : 'title__color--title login__img'} onClick={() => setIsOpen(!isOpen)}>
+                            {token && imgUser ? <img src={imgUser} alt="User" className='header__img login__img-img' /> : <IconUser />}
+                            </span>
                     </div>
                     {!token && isOpen &&
                         <div className='login__login'>
@@ -47,7 +56,7 @@ const Login = () => {
 
                     {token && isOpen && 
                         <div className='login__logout'>
-                            <span>Salir</span>
+                            <span onClick={() => logoutUser()}>Salir</span>
                         </div>
                     }
                 </div>

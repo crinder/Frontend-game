@@ -213,3 +213,14 @@ export const countGames = async () => {
         return null;
     }
 };
+
+export const deleteAll = async () => {
+    try {
+        const db = await OpenDB();
+        const transaction = db.transaction("gameStore", "readwrite");
+        const store = transaction.objectStore("gameStore");
+        store.clear();
+    } catch (error) {
+        console.error("Error al borrar todos los items de IndexedDB:", error);
+    }
+}

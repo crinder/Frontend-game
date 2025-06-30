@@ -16,7 +16,6 @@ const GoogleAuth = ({Message, authorize, setAuthorize, cargando, setCargando}) =
     const handleCredentialResponse = async (response) => {
         setError(null);
         setLoading(true);
-        console.log("ID Token recibido del frontend:", response.credential);
 
         try {
 
@@ -61,6 +60,7 @@ const GoogleAuth = ({Message, authorize, setAuthorize, cargando, setCargando}) =
 
 
     useEffect(() => {
+
         const checkGoogleApi = () => {
             if (window.google && window.google.accounts && window.google.accounts.id) {
                 setIsGoogleApiLoaded(true);
@@ -88,7 +88,7 @@ const GoogleAuth = ({Message, authorize, setAuthorize, cargando, setCargando}) =
         return () => {
 
         };
-    }, [user]);
+    }, [token]);
 
 
     const handleSignOut = () => {
@@ -125,18 +125,10 @@ const GoogleAuth = ({Message, authorize, setAuthorize, cargando, setCargando}) =
                         <p className='auth__auth-loading'>Cargando servicio de Google...</p>
                     )}
 
-                    {user ? (
-                        <div style={{ marginTop: '20px' }}>
-                            <h3>¡Bienvenido, {user.name}!</h3>
-                            <p><img src={user.picture} alt="Foto de perfil" style={{ borderRadius: '50%', width: '60px', height: '60px', marginRight: '15px', verticalAlign: 'middle' }} /> {user.email}</p>
-                            <button onClick={handleSignOut} className='auth__buttom'>
-                                Cerrar Sesión
-                            </button>
-                        </div>
-                    ) : (
+                    
                         <div id="google-sign-in-button" style={{ marginTop: '20px', visibility: isGoogleApiLoaded ? 'visible' : 'hidden' }}>
                         </div>
-                    )}
+                
                 </div>
             }
 

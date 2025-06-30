@@ -15,7 +15,9 @@ const Shopping = () => {
     const [totalGeneral, setTotalGeneral] = useState(0);
     const [descuentos, setDescuentos] = useState([]);
     const [totalDescuentos, setTotalDescuentos] = useState(0);
-    const { token, isLoading, devuelveCart, deleteGame, actShopping, setActShopping } = useAuth();
+    const { token, isLoading, devuelveCart, deleteGame, actShopping, setActShopping, deleteAllGames, authLogin } = useAuth();
+    const [disabled, setDisabled] = useState(false);
+    const [authorize, setAuthorize] = useState(false);
 
     useEffect(() => {
 
@@ -29,22 +31,38 @@ const Shopping = () => {
 
     }, []);
 
+    useEffect(() => {
+        if (authorize) {
+            authLogin(true);
+        }
+    }, [authorize]);
+
     const devuelveGames = async () => {
         const request = await devuelveCart();
 
         let total = 0;
         let descuento = 0;
 
-        request.map(game => {
-            total += game.value.price;
-            descuento += game.value.price * game.value.descuento / 100;
-        });
+        if (request) {
 
-        setTotalGeneral(total);
-        setDescuentos(descuento);
-        setTotalDescuentos(total - descuento);
+            request.map(game => {
+                total += game.value.price;
+                descuento += game.value.price * game.value.descuento / 100;
+            });
 
-        setGames(request);
+            setTotalGeneral(total);
+            setDescuentos(descuento);
+            setTotalDescuentos(total - descuento);
+            setGames(request);
+        }
+
+        if (!request) {
+            setTotalGeneral(0);
+            setDescuentos(0);
+            setTotalDescuentos(0);
+            setGames([]);
+        }
+
     }
 
     const deletegames = async (id) => {
@@ -84,6 +102,31 @@ const Shopping = () => {
             setIsOpenGames(false);
         }
     };
+
+    const accept = async () => {
+
+        const body = {
+            game: games
+        }
+
+        const request = await fetch(Global.url + 'pedido/register', {
+            method: 'POST',
+            body: JSON.stringify(body),
+            headers: {
+                "Content-Type": "application/json",
+                authorization: token
+            }
+        });
+
+        const data = await request.json();
+
+        if (data.status == 'success') {
+            await deleteAllGames();
+            await devuelveGames();
+        }
+
+
+    }
 
     return (
         <div className='shopping__container'>
@@ -163,7 +206,7 @@ const Shopping = () => {
 
 
                             <div className='shopping__cart-games'>
-                                {games && games.map(game => {
+                                {games && games.length > 0 && games.map(game => {
                                     return (
                                         <div className='shopping__cart-games-item'>
                                             <div className='shopping__cart-games-item-img'>
@@ -196,19 +239,21 @@ const Shopping = () => {
                                 })}
                             </div>
 
-                            {token ? (
+                            {token && games.length > 0 &&
                                 <div className='shopping__cart-pay'>
-                                    <div className='shopping__cart-pay-title'>
+                                    <div className='shopping__cart-pay-title' onClick={() => accept()}>
                                         <span className='shopping__cart-pay-span'>Confirmar compra</span>
                                     </div>
                                 </div>
-                            ) : (
+                            }
+
+                            {!token &&
                                 <div className='shopping__cart-pay--auth'>
                                     <div className='shopping__cart-pay-title'>
-                                        <GoogleAuth Message={'Inicia session para finalizar la compra'} authorize={isOpenGames} setAuthorize={isOpenGames} cargando={isLoading} setCargando={setIsOpenGames} />
+                                        <GoogleAuth Message={'Inicia session para finalizar la compra'} authorize={authorize} setAuthorize={setAuthorize} cargando={isLoading} setCargando={setIsOpenGames} />
                                     </div>
                                 </div>
-                            )}
+                            }
 
                         </div>
                     </div>

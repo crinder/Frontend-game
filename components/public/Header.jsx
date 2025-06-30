@@ -1,6 +1,6 @@
 import React from 'react'
 import Nav from './Nav'
-import { IconUser, IconAdmin } from '../Utils/Icons'
+import { IconUser, IconAdmin, IconSho } from '../Utils/Icons'
 import Search from './Search'
 import logo6 from '../../src/img/logo_space6.png';
 import logo7 from '../../src/img/logo_space7.png';
@@ -36,6 +36,7 @@ const Header = () => {
             <li className='hearder__menu-list'><Search /></li>
             <li className='hearder__menu-list'><Login /></li>
             <li className='hearder__menu-list' onClick={() => navigate('/ultra-games/admin-games')}><IconAdmin /></li>
+            <li className='hearder__menu-list' onClick={() => navigate('/ultra-games/history')}><IconSho /></li>
             <li className='hearder__menu-list '><Shopping /><CountGames /></li>
           </ul>
         </nav>

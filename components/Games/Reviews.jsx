@@ -15,7 +15,7 @@ const Reviews = ({ id_game }) => {
     const inputRef = useRef(null);
     const [authorize, setAuthorize] = useState(false);
     const [cargando, setCargando] = useState(true);
-    const { token, isLoading, id_usuario } = useAuth();
+    const { token, isLoading, id_usuario, authLogin } = useAuth();
     const [comments, setComments] = useState([]);
     const [editCommentId, setEditCommentId] = useState(null);
     const [editCommentText, setEditCommentText] = useState('');
@@ -185,10 +185,18 @@ const Reviews = ({ id_game }) => {
         }
     };
 
+    useEffect(() => {
+        if (authorize) {
+            authLogin(true);
+        }
+    }, [authorize]);
+
 
     return (
         <div className='reviews__container'>
-            <GoogleAuth Message='Inicia sesión para comentar' authorize={authorize} setAuthorize={setAuthorize} cargando={cargando} setCargando={setCargando} />
+            {!token && 
+                <GoogleAuth Message='Inicia sesión para comentar' setAuthorize={setAuthorize}  setCargando={setCargando} />
+            }
             {!cargando && (authorize || (!isLoading && token)) && !editCommentId && (
                 <section>
                     <div className='reviews__title'>
@@ -265,12 +273,12 @@ const Reviews = ({ id_game }) => {
                                                         isReadOnly={true}
                                                     />
                                                     <div className='reviews__editar-icon'>
-                                                        {!editCommentId && comment.id_user._id == id_usuario && (
+                                                        {comment.id_user._id == id_usuario && (
                                                             <span className='reviews__editar-icon-span' onClick={() => editar(comment)}><IconEdit /></span>
                                                         )}
                                                     </div>
                                                     <div className='reviews__delete-icon'>
-                                                        {!editCommentId && comment.id_user._id == id_usuario && (
+                                                        {comment.id_user._id == id_usuario && (
                                                             <span className='reviews__delete-icon-span' onClick={() => deleteComment(comment._id)}><Icondelete /></span>
                                                         )}
                                                     </div>

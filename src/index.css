@@ -1994,6 +1994,26 @@ img {
   height: 180px;
 }
 
+.my-custom-skeleton-card-flex{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin: 2rem;
+  padding: 2rem;
+  gap: 2rem;
+}
+
+.my-custom-skeleton-card-flex .react-loading-skeleton__line {
+  margin-bottom: 8px;
+  width: 100%;
+}
+
+.my-custom-skeleton-card-flex .react-loading-skeleton__line:first-child {
+  height: 180px;
+}
+
+
 /***Paginacion***/
 
 .paginacion-games {
@@ -2472,8 +2492,8 @@ img {
 
 .login__logout {
   position: absolute;
-  top: 20px;
-  left: -20px;
+  top: 30px;
+  left: -10px;
   padding: 10px 20px;
   background-color: #dc3545;
   color: white;
@@ -2492,4 +2512,83 @@ img {
 
 .login__logout:hover {
   transform: scale(1.1);
+}
+
+.login__img{
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+}
+
+.login__img-img{
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+/***historial***/
+
+.historial__header{
+  display: flex;
+  flex-direction: row;
+  
+  justify-content: center;
+  margin-bottom: 4rem;
+}
+
+.historial__container{
+  padding: 4rem 6rem;
+}
+
+.historial__content{	
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 6rem;
+}
+
+.historial__card-header{
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+}
+
+.historial__card{
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  height: 100%;
+  border-top: 1px solid #ddd;
+  padding: 2rem 0;
+  gap: 3rem;
+}
+
+.historial__card-body-img-img{
+  width: 200px;
+  height: 150px;
+  border-radius: 10px;
+}
+
+.historial__card-body-title{
+  display: flex;
+  gap: 1rem;
+}
+
+.historial_title{
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 2rem;
+}
+
+.historial__card-body-text, .historial__card-body-descuento{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.historial-title{
+  font-weight: normal;
 }
