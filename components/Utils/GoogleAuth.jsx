@@ -3,6 +3,7 @@ import Global from '../Utils/Global';
 import { useAuth } from '../Context/authContext';
 
 
+
 const GoogleAuth = ({Message, authorize, setAuthorize, cargando, setCargando}) => {
     const [user, setUser] = useState(null);
     const [error, setError] = useState(null);

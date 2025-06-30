@@ -18,7 +18,7 @@ const InfiniteSlider = () => {
         tipo: 'D'
     };
 
-    const request = await fetch(Global.url + 'game/list', {
+    const request = await fetch(Global.url + 'slider/list', {
         method: 'POST',
         body: JSON.stringify(body),
         headers: {
@@ -30,7 +30,9 @@ const InfiniteSlider = () => {
 
     if (data.status == 'success') {
 
-        setImages(data.game);
+       console.log(data.slider);
+
+        setImages(data.slider);
     }
 
 }
@@ -39,7 +41,7 @@ useEffect(() => {
     devuelveSlider();
 }, []);
 
-  const duplicatedImages = [...images, ...images];
+  const duplicatedImages = [...images, ...images, ...images];
 
   useEffect(() => {
     if (sliderRef.current && images.length > 0) {
@@ -90,7 +92,7 @@ useEffect(() => {
               setIsPaused(false);
             }}
           >
-            <img src={Global.url + 'game/images/' + image.image} alt={`Slide ${index}`}  className='recomendados__image-img'/>
+            <img src={Global.url + 'slider/images/' + image.image} alt={`Slide ${index}`}  className='recomendados__image-img'/>
           </div>
         ))}
       </div>

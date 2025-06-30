@@ -165,7 +165,7 @@ const Crear = () => {
 
             <div className='games__crear'>
                 <div className='games__title'>
-                    <span>Crear un nuevo juego</span>
+                    <span className='title__color--title'>Crear un nuevo juego</span>
                 </div>
             </div>
 
@@ -242,9 +242,6 @@ const Crear = () => {
                         {preview &&
                             <CardGames preview={preview} price={price} description={description} name={name} />
                         }
-
-
-
 
                         <div className='category__button'>
                             <div className='category__submit'>

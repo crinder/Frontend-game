@@ -1,7 +1,7 @@
 import React from 'react'
 import { IconRocket } from '../Utils/Icons'
 
-const Button = ({ handleSubmit, isUploading , children }) => {
+const Button = ({ handleSubmit, isUploading = false , children }) => {
     return (
         <button className='button__rocket' onClick={handleSubmit} disabled={isUploading}>
             <div class="svg-wrapper-1">

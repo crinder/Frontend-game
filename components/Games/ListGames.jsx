@@ -58,8 +58,8 @@ const ListGames = () => {
     return (
         <div className='div__container'>
             <div className='games__crear'>
-                <div className='games__title'>
-                    <span>Editar juegos</span>
+                <div className='games__title title__color--title'>
+                    <span className='title__color--title'>Editar juegos</span>
                 </div>
             </div>
 

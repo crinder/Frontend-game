@@ -39,8 +39,6 @@ const EditarSlider = () => {
 
         });
 
-        console.log(newArr);
-
         setItems(newItems);
     };
 
@@ -161,27 +159,19 @@ const EditarSlider = () => {
     useEffect(() => {
 
         if (delImg.length > 0) {
-
-            console.log('delImg...', delImg);
-
             let newItems = items.filter(item => item.id != delImg);
-
             setItems(newItems);
             setIdsEliminar(prevItems => [...prevItems, delImg]);
-
         }
 
     }, [delImg]);
 
-    useEffect(() => {
-        console.log('idsEliminar...', idsEliminar);
-    }, [idsEliminar]);
 
     const previewSlider = async (e) => {
 
-        if(items){
+        if (items) {
             handleSubmit(e);
-            navigate('/ultra-games/preview-slider', {state: {items: items}});
+            navigate('/ultra-games/preview-slider', { state: { items: items } });
         }
 
     }
@@ -196,7 +186,14 @@ const EditarSlider = () => {
                             ref={provided.innerRef}
                             className='slider__bg'
                         >
-                            <h3 onClick={(e) => previewSlider(e)}>Preview </h3>
+                            <div className='category__button'>
+                                <div className='category__submit'>
+                                    <Button handleSubmit={previewSlider} isUploading={isUploading}>
+                                        <p>Pre visualizar</p>
+                                    </Button>
+                                </div>
+                            </div>
+
                             <div className='slider__content'>
                                 {items.map((item, index) => (
                                     <Draggable key={item.id} draggableId={item.id} index={index}>
@@ -222,7 +219,6 @@ const EditarSlider = () => {
             </DragDropContext>
 
             <section className='slider__section'>
-                <h2>Slider</h2>
                 <Dropzone onFileSelected={handleFilesSelected} />
             </section>
             <div className='category__button'>

@@ -65,6 +65,7 @@ const ListDescuento = () => {
       setGames(data.game);
       setLoadingGames(false);
       setTotalPages(data.total);
+      window.scrollTo(0, 0);
     }
   }
 
@@ -111,7 +112,7 @@ const ListDescuento = () => {
     <div className='div__container games__games-container'>
 
       <div className='div__title'>
-        <span className='div__title-text'>Listado</span>
+        <span className='div__title-text title__color--title'>Todos los juegos</span>
       </div>
 
       <div className='games__container'>

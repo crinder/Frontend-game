@@ -6,7 +6,7 @@ import { Outlet } from 'react-router-dom'
 
 const Principal = () => {
   return (
-    <div>
+    <div className='div__principal'>
         <SupraHeader/>
         <Header />
         <Outlet />

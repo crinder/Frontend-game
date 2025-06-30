@@ -210,7 +210,7 @@ const Editar = () => {
 
       <div className='games__crear'>
         <div className='games__title'>
-          <span>Editar juego</span>
+          <span className='title__color--title'>Editar juego</span>
         </div>
       </div>
 

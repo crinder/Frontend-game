@@ -17,32 +17,41 @@ import PreviewSlider from '../Administrador/PreviewSlider';
 import Shopping from '../Games/Shopping';
 import ListDescuento from '../Games/ListDescuento';
 import History from '../Games/History';
+import Scroll from '../Utils/Scroll';
+import AnimatedPage from '../Utils/Animated';
+import { AnimatePresence } from 'framer-motion';
 
 const Routing = () => {
 
     const location = useLocation();
 
     return (
-        <Routes location={location}>
-            <Route path='/ultra-games/*' element={<Principal />}>
-                <Route path='home' element={<Section />} />
-                <Route path='lista-games' element={<ListaGames />} />
-                <Route path='admin-games' element={<Admin />} />
-                <Route path='categorias' element={<Categorias />} />
-                <Route path='crear-categorias' element={<Crear />} />
-                <Route path='editar-categorias' element={<Editar />} />
-                <Route path='crear-games' element={<CrearGame />} />
-                <Route path='editar-games' element={<EditarGame />} />
-                <Route path='list-games' element={<ListGames />} />
-                <Route path='detalle-game' element={<View />} />
-                <Route path='admin-slider-destacados' element={<Slider />} />
-                <Route path='admin-editar-slider' element={<EditarSlider />} />
-                <Route path='preview-slider' element={<PreviewSlider />} />
-                <Route path='shopping-cart' element={<Shopping />} />
-                <Route path='list-descuento' element={<ListDescuento />} />
-                <Route path='history' element={<History />} />
-            </Route>
-        </Routes>
+        <>
+            <Scroll />
+            <AnimatePresence mode="wait">
+                <Routes location={location} key={location.pathname} >
+                    <Route path='/ultra-games/*' element={<Principal />}>
+                        <Route path="home" element={<AnimatedPage><Section /></AnimatedPage>} />
+                        <Route path="lista-games" element={<AnimatedPage><ListaGames /></AnimatedPage>} />
+                        <Route path="admin-games" element={<AnimatedPage><Admin /></AnimatedPage>} />
+                        <Route path="categorias" element={<AnimatedPage><Categorias /></AnimatedPage>} />
+                        <Route path="crear-categorias" element={<AnimatedPage><Crear /></AnimatedPage>} />
+                        <Route path="editar-categorias" element={<AnimatedPage><Editar /></AnimatedPage>} />
+                        <Route path="crear-games" element={<AnimatedPage><CrearGame /></AnimatedPage>} />
+                        <Route path="editar-games" element={<AnimatedPage><EditarGame /></AnimatedPage>} />
+                        <Route path="list-games" element={<AnimatedPage><ListGames /></AnimatedPage>} />
+                        <Route path="detalle-game" element={<AnimatedPage><View /></AnimatedPage>} />
+                        <Route path="admin-slider-destacados" element={<AnimatedPage><Slider /></AnimatedPage>} />
+                        <Route path="admin-editar-slider" element={<AnimatedPage><EditarSlider /></AnimatedPage>} />
+                        <Route path="preview-slider" element={<AnimatedPage><PreviewSlider /></AnimatedPage>} />
+                        <Route path="shopping-cart" element={<AnimatedPage><Shopping /></AnimatedPage>} />
+                        <Route path="list-descuento" element={<AnimatedPage><ListDescuento /></AnimatedPage>} />
+                        <Route path="history" element={<AnimatedPage><History /></AnimatedPage>} />
+
+                    </Route>
+                </Routes>
+            </AnimatePresence>
+        </>
     )
 }
 

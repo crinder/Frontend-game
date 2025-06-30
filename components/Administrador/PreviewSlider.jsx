@@ -2,11 +2,15 @@ import { React, useState, useEffect, useRef } from 'react'
 import Global from '../Utils/Global';
 import { useLocation } from 'react-router-dom';
 import { IconRocket } from '../Utils/Icons';
+import Button from '../Utils/Button';
+import { useNavigate } from 'react-router-dom';
 
 const PreviewSlider = () => {
 
     const location = useLocation();
     const items = location.state.items;
+
+    const navigate = useNavigate();
 
     const [currentIndex, setCurrentIndex] = useState(0);
     const sliderRef = useRef(null);
@@ -26,6 +30,10 @@ const PreviewSlider = () => {
     const goToNext = () => {
         setCurrentIndex((prevIndex) => (prevIndex + 1) % items.length);
     };
+
+    const editarSlider = async (e) => {
+        navigate('/ultra-games/admin-editar-slider');
+    }
 
 
     return (
@@ -60,6 +68,15 @@ const PreviewSlider = () => {
                 </div>
                 <span>Siguiente</span>
             </button>
+
+            <div className='category__button'>
+                <div className='category__submit'>
+                    <Button handleSubmit={editarSlider}>
+                        <p>Regresar</p>
+                    </Button>
+                </div>
+            </div>
+
         </div>
 
 
